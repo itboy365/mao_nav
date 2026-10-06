@@ -341,6 +341,13 @@ export const mockData = {
           "url": "https://www.cgtn.com",
           "description": "中国国际电视台官方门户",
           "icon": "https://www.faviconextractor.com/favicon/www.cgtn.com"
+        },
+        {
+          "id": "chinanews",
+          "name": "中国新闻网",
+          "url": "https://www.chinanews.com.cn",
+          "description": "中央重点新闻网站，依托中新社",
+          "icon": "https://www.faviconextractor.com/favicon/www.chinanews.com.cn"
         }
       ]
     },
@@ -370,6 +377,13 @@ export const mockData = {
           "url": "http://zxgk.court.gov.cn",
           "description": "最高法被执行人信息公开",
           "icon": "https://www.faviconextractor.com/favicon/court.gov.cn"
+        },
+        {
+          "id": "customs-credit",
+          "name": "海关企业进出口信用信息公示平台",
+          "url": "http://credit.customs.gov.cn",
+          "description": "查询海关企业信用等级、备案信息",
+          "icon": "https://www.faviconextractor.com/favicon/credit.customs.gov.cn"
         }
       ]
     },
@@ -913,6 +927,20 @@ export const mockData = {
           "url": "https://www.ggj.gov.cn",
           "description": "国家事务管理局官方门户",
           "icon": "https://www.faviconextractor.com/favicon/www.ggj.gov.cn"
+        },
+        {
+          "id": "cnca",
+          "name": "国家认证认可监督管理委员会",
+          "url": "https://www.cnca.gov.cn",
+          "description": "认证认可、检验检测官方查询",
+          "icon": "https://www.faviconextractor.com/favicon/www.cnca.gov.cn"
+        },
+        {
+          "id": "sac",
+          "name": "国家标准化管理委员会",
+          "url": "https://www.sac.gov.cn",
+          "description": "国家标准、行业标准查询",
+          "icon": "https://www.faviconextractor.com/favicon/www.sac.gov.cn"
         }
       ]
     },
@@ -984,6 +1012,27 @@ export const mockData = {
           "url": "https://www.acfic.org.cn",
           "description": "全国工商联官方门户",
           "icon": "https://www.faviconextractor.com/favicon/www.acfic.org.cn"
+        },
+        {
+          "id": "chinalaw",
+          "name": "中国法学会",
+          "url": "https://www.chinalaw.org.cn",
+          "description": "法学研究、法治宣传",
+          "icon": "https://www.faviconextractor.com/favicon/www.chinalaw.org.cn"
+        },
+        {
+          "id": "zgjx",
+          "name": "中华全国新闻工作者协会",
+          "url": "https://www.zgjx.cn",
+          "description": "新闻行业自律、记者维权",
+          "icon": "https://www.faviconextractor.com/favicon/www.zgjx.cn"
+        },
+        {
+          "id": "sclf",
+          "name": "中国宋庆龄基金会",
+          "url": "https://www.sclf.org",
+          "description": "青少年公益、国际交流",
+          "icon": "https://www.faviconextractor.com/favicon/www.sclf.org"
         }
       ]
     },
@@ -1048,6 +1097,13 @@ export const mockData = {
           "url": "https://www.neac.gov.cn",
           "description": "国家民委官方门户",
           "icon": "https://www.faviconextractor.com/favicon/www.neac.gov.cn"
+        },
+        {
+          "id": "cncaprc",
+          "name": "中国老龄协会",
+          "url": "https://www.cncaprc.gov.cn",
+          "description": "老龄政策研究、养老服务",
+          "icon": "https://www.faviconextractor.com/favicon/www.cncaprc.gov.cn"
         }
       ]
     },
@@ -1106,6 +1162,20 @@ export const mockData = {
           "url": "https://www.drc.gov.cn",
           "description": "国务院发展研究中心官方门户",
           "icon": "https://www.faviconextractor.com/favicon/www.drc.gov.cn"
+        },
+        {
+          "id": "caas",
+          "name": "中国农业科学院",
+          "url": "https://www.caas.cn",
+          "description": "农业科研、科技咨询",
+          "icon": "https://www.faviconextractor.com/favicon/www.caas.cn"
+        },
+        {
+          "id": "cams",
+          "name": "中国医学科学院",
+          "url": "https://www.pumc.edu.cn",
+          "description": "医学研究、医学教育",
+          "icon": "https://www.faviconextractor.com/favicon/www.pumc.edu.cn"
         }
       ]
     }
