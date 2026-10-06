@@ -1023,7 +1023,7 @@ export const mockData = {
         {
           "id": "zgjx",
           "name": "中华全国新闻工作者协会",
-          "url": "https://www.zgjx.cn",
+          "url": "http://www.zgjx.cn",
           "description": "新闻行业自律、记者维权",
           "icon": "https://www.faviconextractor.com/favicon/www.zgjx.cn"
         },
@@ -1181,5 +1181,6 @@ export const mockData = {
     }
   ],
   "title": "⭐ 便民导航",
-  "search": "baidu"
+  "search": "baidu",
+  "icp": ""
 }
