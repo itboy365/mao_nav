@@ -68,8 +68,8 @@
           class="github-link"
           title="访问我的个人主页"
         >
+          <span class="home-text">我的后花园</span>
           <span class="home-icon">🏡</span>
-          <span>我的后花园🏡</span>
         </a>
       </div>
     </aside>
@@ -462,14 +462,20 @@ onUnmounted(() => {
   transform: translateY(-1px);
 }
 
+.github-link .home-text {
+  white-space: nowrap;
+}
+
 .github-link .home-icon {
-  margin-right: 8px;
-  font-size: 18px;
+  margin-left: 6px;
+  font-size: 20px;
+  line-height: 1;
+  display: inline-block;
   transition: transform 0.3s ease;
 }
 
 .github-link:hover .home-icon {
-  transform: scale(1.2);
+  transform: scale(1.15);
 }
 
 /* 收起状态 */
@@ -477,8 +483,7 @@ onUnmounted(() => {
 .sidebar-collapsed .logo,
 .sidebar-collapsed .site-title,
 .sidebar-collapsed .nav-title,
-.sidebar-collapsed .category-name,
-.sidebar-collapsed .github-link span:not(.home-icon) {
+.sidebar-collapsed .category-name {
   display: none;
 }
 .sidebar-collapsed .logo-section { justify-content: center; padding-left: 0; padding-right: 0; }
@@ -487,7 +492,8 @@ onUnmounted(() => {
 .sidebar-collapsed .category-icon { margin-right: 0; font-size: 20px; }
 .sidebar-collapsed .sidebar-footer { padding: 12px 0; display: flex; justify-content: center; }
 .sidebar-collapsed .github-link { justify-content: center; padding: 8px; }
-.sidebar-collapsed .github-link .home-icon { margin-right: 0; }
+.sidebar-collapsed .github-link .home-text { display: none; }
+.sidebar-collapsed .github-link .home-icon { margin-left: 0; font-size: 22px; }
 
 /* 右侧主内容区 */
 .main-content { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
