@@ -1,5 +1,5 @@
 <template>
-  <!-- 锁定界面 -->
+  <!-- 锁定界面（未配置 VITE_OPEN_LOCK 时不会显示） -->
   <div v-if="isLocked && !isUnlocked" class="lock-container">
     <div class="lock-box">
       <h1>🔐 访问验证</h1>
@@ -27,19 +27,26 @@
   </div>
 
   <!-- 正常导航界面 -->
-  <div v-else class="nav-home">
+  <div v-else class="nav-home" :class="{ 'sidebar-collapsed': sidebarCollapsed }">
     <!-- 左侧边栏 -->
     <aside class="sidebar">
       <!-- Logo区域 -->
       <div class="logo-section">
         <img src="/logo.png" alt="logo" class="logo" />
-        <h1 class="site-title">{{ title || '猫猫导航' }}</h1>
+        <h1 class="site-title">{{ title || '我的后花园' }}</h1>
+        <button
+          class="collapse-btn"
+          @click="sidebarCollapsed = !sidebarCollapsed"
+          :title="sidebarCollapsed ? '展开侧边栏' : '收起侧边栏'"
+        >
+          {{ sidebarCollapsed ? '»' : '«' }}
+        </button>
       </div>
 
       <!-- 分类导航 -->
       <nav class="category-nav">
         <h2 class="nav-title">分类导航</h2>
-                <ul class="category-list">
+        <ul class="category-list">
           <li
             v-for="category in categories"
             :key="category.id"
@@ -52,26 +59,24 @@
         </ul>
       </nav>
 
-      <!-- 左侧边栏底部信息 -->
+      <!-- 左侧边栏底部：个人主页入口 -->
       <div class="sidebar-footer">
         <a
-          href="https://github.com/maodeyu180/mao_nav"
+          href="https://itboy.top"
           target="_blank"
           rel="noopener noreferrer"
           class="github-link"
-          title="查看源代码"
+          title="访问我的个人主页"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-          </svg>
-          <span>开源不易，Star一下吧！⭐</span>
+          <span class="home-icon">🏡</span>
+          <span>我的后花园🏡</span>
         </a>
       </div>
     </aside>
 
     <!-- 右侧主内容区 -->
     <main class="main-content">
-                  <!-- 顶部搜索栏 -->
+      <!-- 顶部搜索栏 -->
       <header class="search-header">
         <div class="search-container">
           <div class="search-engine-selector">
@@ -114,11 +119,11 @@
           <div class="mobile-menu-header">
             <div class="header-left">
               <h3>分类导航</h3>
-              <img :src="githubLogo" alt="GitHub" class="header-github-icon" @click="openGitHub" />
+              <span class="header-home-icon" @click="openHome">🏡</span>
             </div>
             <button class="close-btn" @click="closeMobileMenu">×</button>
           </div>
-                    <ul class="mobile-category-list">
+          <ul class="mobile-category-list">
             <li
               v-for="category in categories"
               :key="category.id"
@@ -149,7 +154,7 @@
           <button @click="fetchCategories" class="retry-btn">重试</button>
         </div>
 
-                <!-- 分类内容 -->
+        <!-- 分类内容 -->
         <div v-else class="categories-container">
           <section
             v-for="category in categories"
@@ -181,11 +186,10 @@
               </a>
             </div>
           </section>
-
         </div>
       </div>
 
-      <!-- 备案号默认显示在主内容底部，未配置时不占用空间 -->
+      <!-- 备案号 -->
       <footer v-if="icpNumber" class="icp-footer">
         <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">
           {{ icpNumber }}
@@ -199,214 +203,140 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useNavigation } from '@/apis/useNavigation.js'
 import { useThemeStore } from '@/stores/counter.js'
-// 导入搜索引擎logo图片
 import googleLogo from '@/assets/goolge.png'
 import baiduLogo from '@/assets/baidu.png'
 import bingLogo from '@/assets/bing.png'
 import duckLogo from '@/assets/duck.png'
-// 导入GitHub logo
-import githubLogo from '@/assets/github.png'
 
-// 使用导航API
 const { categories, title, icpNumber, defaultSearchEngine, loading, error, fetchCategories } = useNavigation()
-
-// 使用主题store
 const themeStore = useThemeStore()
 
-// 响应式数据
-const searchQuery = ref('') // 搜索查询
-const selectedEngine = ref('bing') // 选中的搜索引擎，初始值会在组件挂载后更新
-const showMobileMenu = ref(false) // 移动端菜单显示状态
+const searchQuery = ref('')
+const selectedEngine = ref('bing')
+const showMobileMenu = ref(false)
 
-// 锁定功能相关
-const isLocked = ref(false) // 是否启用锁定功能
-const isUnlocked = ref(false) // 是否已解锁
-const unlockPassword = ref('') // 解锁密码输入
-const unlocking = ref(false) // 解锁中状态
-const unlockError = ref('') // 解锁错误信息
+// 侧边栏收起状态
+const sidebarCollapsed = ref(false)
 
-// 搜索引擎配置
+// 锁定功能（未配置 VITE_OPEN_LOCK 时自动跳过）
+const isLocked = ref(false)
+const isUnlocked = ref(false)
+const unlockPassword = ref('')
+const unlocking = ref(false)
+const unlockError = ref('')
+
 const searchEngines = {
-  google: {
-    url: 'https://www.google.com/search?q=',
-    icon: googleLogo,
-    placeholder: 'Google (点logo切换搜索引擎'
-  },
-  baidu: {
-    url: 'https://www.baidu.com/s?wd=',
-    icon: baiduLogo,
-    placeholder: '百度一下(点logo切换搜索引擎'
-  },
-  bing: {
-    url: 'https://www.bing.com/search?q=',
-    icon: bingLogo,
-    placeholder: 'Bing (点logo切换搜索引擎)'
-  },
-  duckduckgo: {
-    url: 'https://duckduckgo.com/?q=',
-    icon: duckLogo,
-    placeholder: 'DuckDuckGo (点logo切换搜索引擎)'
-  }
+  google: { url: 'https://www.google.com/search?q=', icon: googleLogo, placeholder: 'Google (点logo切换搜索引擎' },
+  baidu: { url: 'https://www.baidu.com/s?wd=', icon: baiduLogo, placeholder: '百度一下(点logo切换搜索引擎' },
+  bing: { url: 'https://www.bing.com/search?q=', icon: bingLogo, placeholder: 'Bing (点logo切换搜索引擎)' },
+  duckduckgo: { url: 'https://duckduckgo.com/?q=', icon: duckLogo, placeholder: 'DuckDuckGo (点logo切换搜索引擎)' }
 }
 
-// 自定义固定时间滚动函数
 const smoothScrollTo = (container, targetTop, duration = 600) => {
   const startTop = container.scrollTop
   const distance = targetTop - startTop
   let startTime = null
-
   const animateScroll = (currentTime) => {
     if (startTime === null) startTime = currentTime
     const timeElapsed = currentTime - startTime
     const progress = Math.min(timeElapsed / duration, 1)
-
-    // 使用缓动函数 (easeInOutCubic)
     const ease = progress < 0.5
       ? 4 * progress * progress * progress
       : 1 - Math.pow(-2 * progress + 2, 3) / 2
-
     container.scrollTop = startTop + distance * ease
-
-    if (progress < 1) {
-      requestAnimationFrame(animateScroll)
-    }
+    if (progress < 1) requestAnimationFrame(animateScroll)
   }
-
   requestAnimationFrame(animateScroll)
 }
 
-// 滚动到指定分类
 const scrollToCategory = (categoryId) => {
   const element = document.getElementById(`category-${categoryId}`)
   const container = document.querySelector('.content-area')
-
   if (element && container) {
-    // 检查是否为移动端
     const isMobile = window.innerWidth <= 768
-
     let targetTop = 0
-
     if (isMobile) {
-      // 移动端：在 content-area 容器内滚动
-      const elementOffsetTop = element.offsetTop
-      const searchHeaderHeight = 80 // 固定高度，因为搜索框是fixed定位
-      targetTop = elementOffsetTop - searchHeaderHeight
+      targetTop = element.offsetTop - 80
     } else {
-      // 桌面端：在容器内滚动
       const searchHeader = document.querySelector('.search-header')
-      const elementOffsetTop = element.offsetTop
       const searchHeaderHeight = searchHeader ? searchHeader.offsetHeight + 20 : 100
-      targetTop = elementOffsetTop - searchHeaderHeight
+      targetTop = element.offsetTop - searchHeaderHeight
     }
-
-    // 使用固定时间滚动（600毫秒）
     smoothScrollTo(container, Math.max(0, targetTop), 600)
   }
 }
 
-// 检查是否启用锁定功能
 const checkLockStatus = () => {
   const openLock = import.meta.env.VITE_OPEN_LOCK
   if (openLock && openLock.trim() !== '') {
     isLocked.value = true
-    // 检查是否已经解锁过
     const savedUnlock = localStorage.getItem('nav_unlocked')
-    if (savedUnlock === 'true') {
-      isUnlocked.value = true
-    }
+    if (savedUnlock === 'true') isUnlocked.value = true
   } else {
+    // 未配置 VITE_OPEN_LOCK，直接进入导航
     isLocked.value = false
-    isUnlocked.value = true // 如果没有启用锁定，默认为解锁状态
+    isUnlocked.value = true
   }
 }
 
-// 处理解锁（通过服务端验证）
 const handleUnlock = async () => {
   unlocking.value = true
   unlockError.value = ''
-
   try {
     const response = await fetch('/api/verify', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password: unlockPassword.value }),
     })
-
     const result = await response.json()
-
-    if (!result.success) {
-      throw new Error(result.error || '访问密钥错误，请重新输入')
-    }
-
+    if (!result.success) throw new Error(result.error || '访问密钥错误，请重新输入')
     isUnlocked.value = true
     localStorage.setItem('nav_unlocked', 'true')
     unlockPassword.value = ''
-  } catch (error) {
-    unlockError.value = error.message
+  } catch (err) {
+    unlockError.value = err.message
   } finally {
     unlocking.value = false
   }
 }
 
-// 处理搜索
 const handleSearch = () => {
   if (!searchQuery.value.trim()) return
-
   const engine = searchEngines[selectedEngine.value]
-  const url = engine.url + encodeURIComponent(searchQuery.value)
-  window.open(url, '_blank')
+  window.open(engine.url + encodeURIComponent(searchQuery.value), '_blank')
 }
 
-// 处理图片加载错误
 const handleImageError = (event) => {
-  // 设置默认的 favicon.ico 作为 fallback 图片
   event.target.src = '/favicon.ico'
-  event.target.onerror = null // 防止无限循环
+  event.target.onerror = null
 }
 
-// 移动端菜单控制
 const toggleMobileMenu = () => {
   showMobileMenu.value = !showMobileMenu.value
-  // 控制body滚动
-  if (showMobileMenu.value) {
-    document.body.style.overflow = 'hidden'
-  } else {
-    document.body.style.overflow = ''
-  }
+  document.body.style.overflow = showMobileMenu.value ? 'hidden' : ''
 }
 
 const closeMobileMenu = () => {
   showMobileMenu.value = false
-  // 恢复body滚动
   document.body.style.overflow = ''
 }
 
-// 移动端分类滚动
 const scrollToCategoryMobile = (categoryId) => {
-  closeMobileMenu() // 先关闭菜单
-
-  // 稍微延迟一下再滚动，确保菜单关闭动画完成
-  setTimeout(() => {
-    scrollToCategory(categoryId)
-  }, 200)
+  closeMobileMenu()
+  setTimeout(() => scrollToCategory(categoryId), 200)
 }
 
-// 打开GitHub项目页面
-const openGitHub = () => {
-  window.open('https://github.com/maodeyu180/mao_nav', '_blank')
+const openHome = () => {
+  window.open('https://itboy.top', '_blank')
 }
 
-// 组件挂载时获取数据
 onMounted(async () => {
-  checkLockStatus() // 检查锁定状态
+  checkLockStatus()
   await fetchCategories()
-  // 设置默认搜索引擎
   selectedEngine.value = defaultSearchEngine.value
 })
 
-// 组件卸载时清理样式
 onUnmounted(() => {
-  // 确保卸载时恢复body滚动
   document.body.style.overflow = ''
 })
 </script>
@@ -415,112 +345,42 @@ onUnmounted(() => {
 /* 锁定界面样式 */
 .lock-container {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #2c3e50;
-  padding: 20px;
-  z-index: 9999;
+  top: 0; left: 0;
+  width: 100%; height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  background: #2c3e50; padding: 20px; z-index: 9999;
 }
-
 .lock-box {
-  background: white;
-  padding: 40px;
-  border-radius: 16px;
+  background: white; padding: 40px; border-radius: 16px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-  text-align: center;
+  width: 100%; max-width: 400px; text-align: center;
 }
-
-.lock-box h1 {
-  color: #2d3748;
-  margin-bottom: 8px;
-  font-size: 28px;
-  font-weight: 600;
-}
-
-.lock-description {
-  color: #718096;
-  margin-bottom: 30px;
-  font-size: 16px;
-}
-
-.lock-box .form-group {
-  margin-bottom: 20px;
-  text-align: left;
-}
-
-.lock-box .form-group label {
-  display: block;
-  margin-bottom: 8px;
-  color: #4a5568;
-  font-weight: 500;
-  font-size: 14px;
-}
-
+.lock-box h1 { color: #2d3748; margin-bottom: 8px; font-size: 28px; font-weight: 600; }
+.lock-description { color: #718096; margin-bottom: 30px; font-size: 16px; }
+.lock-box .form-group { margin-bottom: 20px; text-align: left; }
+.lock-box .form-group label { display: block; margin-bottom: 8px; color: #4a5568; font-weight: 500; font-size: 14px; }
 .lock-box .form-input {
-  width: 100%;
-  padding: 12px 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  background: #fff;
+  width: 100%; padding: 12px 16px; border: 2px solid #e2e8f0;
+  border-radius: 8px; font-size: 16px; transition: all 0.3s ease; background: #fff;
 }
-
-.lock-box .form-input:focus {
-  outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
+.lock-box .form-input:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
 .unlock-btn {
-  width: 100%;
-  padding: 12px 24px;
+  width: 100%; padding: 12px 24px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 10px;
+  color: white; border: none; border-radius: 8px;
+  font-size: 16px; font-weight: 600; cursor: pointer;
+  transition: all 0.3s ease; margin-top: 10px;
 }
-
-.unlock-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-}
-
-.unlock-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
+.unlock-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3); }
+.unlock-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 .lock-box .error-message {
-  margin-top: 15px;
-  padding: 12px;
-  background: #fed7d7;
-  color: #c53030;
-  border-radius: 8px;
-  font-size: 14px;
-  border: 1px solid #feb2b2;
+  margin-top: 15px; padding: 12px; background: #fed7d7;
+  color: #c53030; border-radius: 8px; font-size: 14px; border: 1px solid #feb2b2;
 }
 
-.nav-home {
-  display: flex;
-  min-height: 100vh;
-  background-color: #f5f7fa;
-}
+.nav-home { display: flex; min-height: 100vh; background-color: #f5f7fa; }
 
-/* 左侧边栏样式 */
+/* 左侧边栏 */
 .sidebar {
   width: 280px;
   background-color: #2c3e50;
@@ -530,83 +390,58 @@ onUnmounted(() => {
   height: 100vh;
   overflow: hidden;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
 }
 
 .logo-section {
   display: flex;
   align-items: center;
   padding-left: 20px;
+  padding-right: 10px;
   padding-top: 13px;
   padding-bottom: 13px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.logo {
-  width: 55px;
-  height: 55px;
-  border-radius: 12px;
-  margin-right: 15px;
-}
+.logo { width: 55px; height: 55px; border-radius: 12px; margin-right: 15px; }
+.site-title { font-size: 24px; font-weight: 600; margin: 0; color: white; flex: 1; white-space: nowrap; overflow: hidden; }
 
-.site-title {
-  font-size: 24px;
-  font-weight: 600;
-  margin: 0;
-  color: white;
-}
-
-.category-nav {
-  padding: 20px 0;
-  height: calc(100vh - 180px); /* 为底部留出空间 */
-  overflow-y: auto;
-}
-
-.nav-title {
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0 20px 15px;
+/* 收起按钮 */
+.collapse-btn {
+  background: none;
+  border: none;
   color: #bdc3c7;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.category-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.category-item {
-  display: flex;
-  align-items: center;
-  padding: 12px 20px;
+  font-size: 22px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
 }
+.collapse-btn:hover { background: rgba(255, 255, 255, 0.1); color: white; }
 
-.category-item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  box-shadow: inset 4px 0 0 #3498db;
+.category-nav { padding: 20px 0; flex: 1; overflow-y: auto; }
+.nav-title {
+  font-size: 16px; font-weight: 600; margin: 0 20px 15px;
+  color: #bdc3c7; text-transform: uppercase; letter-spacing: 1px;
 }
-
-.category-icon {
-  font-size: 18px;
-  margin-right: 12px;
-  width: 20px;
-  text-align: center;
+.category-list { list-style: none; padding: 0; margin: 0; }
+.category-item {
+  display: flex; align-items: center;
+  padding: 12px 20px; cursor: pointer;
+  transition: all 0.3s ease; position: relative;
 }
+.category-item:hover { background-color: rgba(255, 255, 255, 0.1); box-shadow: inset 4px 0 0 #3498db; }
+.category-icon { font-size: 18px; margin-right: 12px; width: 20px; text-align: center; }
+.category-name { font-size: 15px; font-weight: 500; white-space: nowrap; }
 
-.category-name {
-  font-size: 15px;
-  font-weight: 500;
-}
-
-/* 左侧边栏底部 */
+/* 左侧边栏底部：个人主页 */
 .sidebar-footer {
-  padding: 20px;
+  padding: 16px 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: auto;
+  flex-shrink: 0;
 }
 
 .github-link {
@@ -618,6 +453,7 @@ onUnmounted(() => {
   border-radius: 6px;
   transition: all 0.3s ease;
   font-size: 14px;
+  white-space: nowrap;
 }
 
 .github-link:hover {
@@ -626,721 +462,231 @@ onUnmounted(() => {
   transform: translateY(-1px);
 }
 
-.github-link svg {
+.github-link .home-icon {
   margin-right: 8px;
+  font-size: 18px;
   transition: transform 0.3s ease;
 }
 
-.github-link:hover svg {
-  transform: scale(1.1);
+.github-link:hover .home-icon {
+  transform: scale(1.2);
 }
 
-/* 右侧主内容区样式 */
-.main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.search-header {
-  background: white;
-  padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.search-container {
-  display: flex;
-  max-width: 600px;
-  margin: 0 auto;
-  gap: 0;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  flex: 1;
-}
-
-@media (max-width: 768px) {
-  .search-container {
-    margin: 0;
-    max-width: none;
-  }
-}
-
-.search-engine-selector {
-  position: relative;
-  display: flex;
-  align-items: center;
-  background: #f8f9fa;
-  border-right: 1px solid #e9ecef;
-  transition: background-color 0.2s ease;
-}
-
-.search-engine-selector:hover {
-  background: #e9ecef;
-}
-
-.engine-logo {
-  width: 24px;
-  height: 24px;
-  margin: 8px;
-  object-fit: contain;
-  pointer-events: none;
-  border-radius: 4px;
-}
-
-.engine-select {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-  border: none;
-  outline: none;
-  background: transparent;
-}
-
-.search-input {
-  flex: 1;
-  border: none;
-  padding: 12px 16px;
-  font-size: 16px;
-  outline: none;
-  background: white;
-}
-
-.search-input::placeholder {
-  color: #95a5a6;
-}
-
-/* 移动端菜单按钮 */
-.mobile-menu-btn {
+/* 收起状态 */
+.sidebar-collapsed .sidebar { width: 60px; }
+.sidebar-collapsed .logo,
+.sidebar-collapsed .site-title,
+.sidebar-collapsed .nav-title,
+.sidebar-collapsed .category-name,
+.sidebar-collapsed .github-link span:not(.home-icon) {
   display: none;
-  background: none;
-  border: none;
-  color: #2c3e50;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
 }
+.sidebar-collapsed .logo-section { justify-content: center; padding-left: 0; padding-right: 0; }
+.sidebar-collapsed .collapse-btn { margin: 0; padding: 8px; }
+.sidebar-collapsed .category-item { justify-content: center; padding: 14px 0; }
+.sidebar-collapsed .category-icon { margin-right: 0; font-size: 20px; }
+.sidebar-collapsed .sidebar-footer { padding: 12px 0; display: flex; justify-content: center; }
+.sidebar-collapsed .github-link { justify-content: center; padding: 8px; }
+.sidebar-collapsed .github-link .home-icon { margin-right: 0; }
 
-.mobile-menu-btn:hover {
-  background: #f8f9fa;
+/* 右侧主内容区 */
+.main-content { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+.search-header {
+  background: white; padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; gap: 15px;
 }
+.search-container {
+  display: flex; max-width: 600px; margin: 0 auto; gap: 0;
+  border-radius: 8px; overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); flex: 1;
+}
+@media (max-width: 768px) { .search-container { margin: 0; max-width: none; } }
+.search-engine-selector {
+  position: relative; display: flex; align-items: center;
+  background: #f8f9fa; border-right: 1px solid #e9ecef; transition: background-color 0.2s ease;
+}
+.search-engine-selector:hover { background: #e9ecef; }
+.engine-logo { width: 24px; height: 24px; margin: 8px; object-fit: contain; pointer-events: none; border-radius: 4px; }
+.engine-select { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; border: none; outline: none; background: transparent; }
+.search-input { flex: 1; border: none; padding: 12px 16px; font-size: 16px; outline: none; background: white; }
+.search-input::placeholder { color: #95a5a6; }
+
+.mobile-menu-btn {
+  display: none; background: none; border: none;
+  color: #2c3e50; cursor: pointer; padding: 8px; border-radius: 4px; transition: background-color 0.2s ease;
+}
+.mobile-menu-btn:hover { background: #f8f9fa; }
 
 /* 移动端菜单 */
 .mobile-menu {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 240px;
-  height: 100vh;
-  background: white;
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1001;
-  transition: right 0.3s ease;
-  overflow-y: auto;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
+  position: fixed; top: 0; right: -100%; width: 240px; height: 100vh;
+  background: white; box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1001; transition: right 0.3s ease; overflow-y: auto; overflow-x: hidden;
+  display: flex; flex-direction: column;
 }
-
-.mobile-menu.active {
-  right: 0;
-}
-
+.mobile-menu.active { right: 0; }
 .mobile-menu-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  border-bottom: 1px solid #e9ecef;
-  background: #2c3e50;
-  color: white;
-  flex-shrink: 0;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px; border-bottom: 1px solid #e9ecef; background: #2c3e50;
+  color: white; flex-shrink: 0;
 }
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.mobile-menu-header h3 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.header-github-icon {
-  width: 30px;
-  height: 30px;
+.header-left { display: flex; align-items: center; gap: 12px; }
+.mobile-menu-header h3 { margin: 0; font-size: 18px; font-weight: 600; }
+.header-home-icon {
+  font-size: 22px;
   cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-  opacity: 0.8;
+  transition: transform 0.3s ease;
+  display: inline-block;
 }
-
-.header-github-icon:hover {
-  opacity: 1;
-  transform: scale(1.1);
-}
-
+.header-home-icon:hover { transform: scale(1.2); }
 .close-btn {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 0;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
+  background: none; border: none; color: white; font-size: 24px;
+  cursor: pointer; padding: 0; width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 4px; transition: background-color 0.2s ease;
 }
-
-.close-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.mobile-category-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  flex: 1;
-  overflow-y: auto;
-  padding-bottom: 160px; /* 增加底部内边距确保最后一项完全可见 */
-}
-
+.close-btn:hover { background: rgba(255, 255, 255, 0.1); }
+.mobile-category-list { list-style: none; padding: 0; margin: 0; flex: 1; overflow-y: auto; padding-bottom: 160px; }
 .mobile-category-item {
-  display: flex;
-  align-items: center;
-  padding: 16px 20px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  border-bottom: 1px solid #f8f9fa;
+  display: flex; align-items: center; padding: 16px 20px;
+  cursor: pointer; transition: background-color 0.2s ease; border-bottom: 1px solid #f8f9fa;
 }
+.mobile-category-item:hover { background: #f8f9fa; }
+.mobile-category-item .category-icon { font-size: 20px; margin-right: 12px; width: 24px; text-align: center; }
+.mobile-category-item .category-name { font-size: 16px; font-weight: 500; color: #2c3e50; }
 
-.mobile-category-item:hover {
-  background: #f8f9fa;
-}
-
-.mobile-category-item .category-icon {
-  font-size: 20px;
-  margin-right: 12px;
-  width: 24px;
-  text-align: center;
-}
-
-.mobile-category-item .category-name {
-  font-size: 16px;
-  font-weight: 500;
-  color: #2c3e50;
-}
-
-
-
-/* 移动端菜单遮罩 */
 .mobile-menu-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5); z-index: 999;
+  opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
 }
+.mobile-menu-overlay.active { opacity: 1; visibility: visible; }
 
-.mobile-menu-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* 内容区域样式 */
-.content-area {
-  flex: 1;
-  padding: 30px;
-  padding-bottom: 400px;
-  overflow-y: auto;
-}
-
-.loading, .error {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 200px;
-  color: #7f8c8d;
-}
-
+/* 内容区域 */
+.content-area { flex: 1; padding: 30px; padding-bottom: 400px; overflow-y: auto; }
+.loading, .error { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px; color: #7f8c8d; }
 .loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #ecf0f1;
-  border-top: 4px solid #3498db;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+  width: 40px; height: 40px; border: 4px solid #ecf0f1;
+  border-top: 4px solid #3498db; border-radius: 50%; animation: spin 1s linear infinite;
 }
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.retry-btn {
-  margin-top: 10px;
-  padding: 8px 16px;
-  background: #3498db;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.categories-container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.category-section {
-  margin-bottom: 50px;
-}
-
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.retry-btn { margin-top: 10px; padding: 8px 16px; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; }
+.categories-container { max-width: 1200px; margin: 0 auto; }
+.category-section { margin-bottom: 50px; }
 .category-title {
-  font-size: 32px;
-  font-weight: 600;
-  margin-bottom: 25px;
-  color: #2c3e50;
-  display: flex;
-  align-items: center;
+  font-size: 32px; font-weight: 600; margin-bottom: 25px; color: #2c3e50;
+  display: flex; align-items: center;
 }
-
-.category-title .category-icon {
-  font-size: 32px;
-  margin-right: 16px;
-}
-
-.category-title .category-name {
-  margin-left: 10px;
-  font-size: 26px;
-}
-
-.sites-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-}
-
+.category-title .category-icon { font-size: 32px; margin-right: 16px; }
+.category-title .category-name { margin-left: 10px; font-size: 26px; }
+.sites-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
 .site-card {
-  display: flex;
-  align-items: center;
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.3s ease;
-  border: 1px solid #e9ecef;
-  position: relative;
-  overflow: hidden;
+  display: flex; align-items: center; background: white; border-radius: 12px;
+  padding: 20px; text-decoration: none; color: inherit;
+  transition: all 0.3s ease; border: 1px solid #e9ecef;
+  position: relative; overflow: hidden;
 }
-
 .site-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
   background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(155, 89, 182, 0.1));
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  opacity: 0; transition: opacity 0.3s ease;
 }
-
-.site-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.site-card:hover::before {
-  opacity: 1;
-}
-
+.site-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); }
+.site-card:hover::before { opacity: 1; }
 .site-icon {
-  width: 48px;
-  height: 48px;
-  min-width: 48px;
-  flex-shrink: 0;
-  margin-right: 16px;
-  border-radius: 8px;
-  overflow: hidden;
-  background: #f8f9fa;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
+  width: 48px; height: 48px; min-width: 48px; flex-shrink: 0; margin-right: 16px;
+  border-radius: 8px; overflow: hidden; background: #f8f9fa;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 1;
 }
-
-.site-icon img {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-}
-
-.site-info {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  position: relative;
-  z-index: 1;
-}
-
-.site-name {
-  font-size: 18px;
-  font-weight: 600;
-  margin: 0 0 5px 0;
-  color: #2c3e50;
-}
-
+.site-icon img { width: 32px; height: 32px; object-fit: contain; }
+.site-info { flex: 1; min-width: 0; overflow: hidden; position: relative; z-index: 1; }
+.site-name { font-size: 18px; font-weight: 600; margin: 0 0 5px 0; color: #2c3e50; }
 .site-description {
-  font-size: 14px;
-  color: #7f8c8d;
-  margin: 0;
-  line-height: 1.4;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 14px; color: #7f8c8d; margin: 0; line-height: 1.4;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
 /* 备案信息 */
 .icp-footer {
-  flex-shrink: 0;
-  padding: 10px 20px;
-  text-align: center;
-  background: white;
-  border-top: 1px solid #e9ecef;
-  font-size: 13px;
+  flex-shrink: 0; padding: 10px 20px; text-align: center;
+  background: white; border-top: 1px solid #e9ecef; font-size: 13px;
 }
+.icp-footer a { color: #7f8c8d; text-decoration: none; transition: color 0.2s ease; }
+.icp-footer a:hover { color: #3498db; }
 
-.icp-footer a {
-  color: #7f8c8d;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.icp-footer a:hover {
-  color: #3498db;
-}
-
-/* 响应式设计 */
+/* 响应式 */
 @media (max-width: 768px) {
-  .nav-home {
-    flex-direction: column;
-    height: 100vh;
-    height: 100svh; /* 使用动态视口高度 */
-    overflow: hidden;
-  }
-
-  .sidebar {
-    display: none; /* 在移动端隐藏左侧边栏 */
-  }
-
-  .main-content {
-    flex: 1;
-    height: 100vh;
-    height: 100svh; /* 使用动态视口高度，更准确 */
-    margin-left: 0;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
+  .nav-home { flex-direction: column; height: 100vh; height: 100svh; overflow: hidden; }
+  .sidebar { display: none; }
+  .main-content { flex: 1; height: 100vh; height: 100svh; margin-left: 0; display: flex; flex-direction: column; overflow: hidden; }
   .search-header {
-    padding: 15px 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 500;
-    background: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px 20px; position: fixed; top: 0; left: 0; right: 0;
+    z-index: 500; background: white; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
-
-  .content-area {
-    flex: 1;
-    padding: 20px 15px;
-    padding-top: 100px; /* 为固定的搜索框留出空间 */
-    padding-bottom: 300px; /* 增加底部padding确保内容可以完全滚动 */
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch; /* iOS平滑滚动 */
-  }
-
-  .mobile-menu-btn {
-    display: block; /* 在移动端显示菜单按钮 */
-    flex-shrink: 0;
-  }
-
-  .sites-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  .site-card {
-    padding: 12px;
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .site-card .site-icon {
-    margin-right: 0;
-    margin-bottom: 8px;
-  }
-
-  .site-card .site-name {
-    font-size: 15px;
-  }
-
-  .site-card .site-description {
-    font-size: 12px;
-  }
-
-  .category-title {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-
-  .category-title .category-icon {
-    font-size: 28px;
-    margin-right: 12px;
-  }
-
-  .category-title .category-name {
-    font-size: 22px;
-  }
-
-  .icp-footer {
-    padding: 8px 15px;
-    font-size: 12px;
-  }
+  .content-area { flex: 1; padding: 20px 15px; padding-top: 100px; padding-bottom: 300px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .mobile-menu-btn { display: block; flex-shrink: 0; }
+  .sites-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .site-card { padding: 12px; flex-direction: column; text-align: center; }
+  .site-card .site-icon { margin-right: 0; margin-bottom: 8px; }
+  .site-card .site-name { font-size: 15px; }
+  .site-card .site-description { font-size: 12px; }
+  .category-title { font-size: 24px; margin-bottom: 20px; }
+  .category-title .category-icon { font-size: 28px; margin-right: 12px; }
+  .category-title .category-name { font-size: 22px; }
+  .icp-footer { padding: 8px 15px; font-size: 12px; }
 }
 
-/* 主题切换按钮样式 */
+/* 主题切换按钮 */
 .theme-toggle-btn {
-  background: none;
-  border: none;
-  color: #2c3e50;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 10px;
+  background: none; border: none; color: #2c3e50; cursor: pointer;
+  padding: 8px; border-radius: 6px; transition: all 0.3s ease;
+  display: flex; align-items: center; justify-content: center; margin-right: 10px;
 }
+.theme-toggle-btn:hover { background: #f8f9fa; transform: scale(1.1); }
 
-.theme-toggle-btn:hover {
-  background: #f8f9fa;
-  transform: scale(1.1);
-}
-
-/* 暗色模式样式 */
-.dark .nav-home {
-  background-color: #1a1a1a;
-}
-
-.dark .sidebar {
-  background-color: #1e293b;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
-}
-
-.dark .search-header {
-  background: #1e293b;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.dark .theme-toggle-btn {
-  color: #e2e8f0;
-}
-
-.dark .theme-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.dark .mobile-menu-btn {
-  color: #e2e8f0;
-}
-
-.dark .mobile-menu-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.dark .search-container {
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.dark .search-engine-selector {
-  background: #374151;
-  border-right: 1px solid #4b5563;
-}
-
-.dark .search-engine-selector:hover {
-  background: #4b5563;
-}
-
-.dark .search-input {
-  background: #374151;
-  color: #e2e8f0;
-  border: none;
-}
-
-.dark .search-input::placeholder {
-  color: #9ca3af;
-}
-
-.dark .engine-select {
-  background: #374151;
-  color: #e2e8f0;
-}
-
-.dark .engine-select option {
-  background: #374151;
-  color: #e2e8f0;
-}
-
-.dark .content-area {
-  background: #1a1a1a;
-}
-
-.dark .site-card {
-  background: #374151;
-  border: 1px solid #4b5563;
-  color: #e2e8f0;
-}
-
-.dark .site-card:hover {
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-}
-
-.dark .site-card::before {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
-}
-
-.dark .site-name {
-  color: #e2e8f0;
-}
-
-.dark .site-description {
-  color: #9ca3af;
-}
-
-.dark .site-icon {
-  background: #4b5563;
-}
-
-.dark .category-title {
-  color: #e2e8f0;
-}
-
-.dark .mobile-menu {
-  background: #1e293b;
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
-}
-
-.dark .mobile-category-item {
-  border-bottom: 1px solid #374151;
-}
-
-.dark .mobile-category-item:hover {
-  background: #374151;
-}
-
-.dark .mobile-category-item .category-name {
-  color: #e2e8f0;
-}
-
-.dark .icp-footer {
-  background: #1e293b;
-  border-top-color: #374151;
-}
-
-.dark .icp-footer a {
-  color: #9ca3af;
-}
-
-.dark .icp-footer a:hover {
-  color: #60a5fa;
-}
-
-.dark .loading,
-.dark .error {
-  color: #9ca3af;
-}
-
-.dark .retry-btn {
-  background: #3b82f6;
-  color: white;
-}
-
-.dark .retry-btn:hover {
-  background: #2563eb;
-}
-
-/* 锁定界面暗色模式 */
-.dark .lock-container {
-  background: #0f172a;
-}
-
-.dark .lock-box {
-  background: #1e293b;
-  color: #e2e8f0;
-}
-
-.dark .lock-box h1 {
-  color: #e2e8f0;
-}
-
-.dark .lock-description {
-  color: #94a3b8;
-}
-
-.dark .lock-box .form-group label {
-  color: #cbd5e1;
-}
-
-.dark .lock-box .form-input {
-  background: #374151;
-  border: 2px solid #4b5563;
-  color: #e2e8f0;
-}
-
-.dark .lock-box .form-input:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-.dark .unlock-btn {
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-}
-
-.dark .unlock-btn:hover:not(:disabled) {
-  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
-}
+/* 暗色模式 */
+.dark .nav-home { background-color: #1a1a1a; }
+.dark .sidebar { background-color: #1e293b; box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3); }
+.dark .search-header { background: #1e293b; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); }
+.dark .theme-toggle-btn { color: #e2e8f0; }
+.dark .theme-toggle-btn:hover { background: rgba(255, 255, 255, 0.1); }
+.dark .mobile-menu-btn { color: #e2e8f0; }
+.dark .mobile-menu-btn:hover { background: rgba(255, 255, 255, 0.1); }
+.dark .search-container { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); }
+.dark .search-engine-selector { background: #374151; border-right: 1px solid #4b5563; }
+.dark .search-engine-selector:hover { background: #4b5563; }
+.dark .search-input { background: #374151; color: #e2e8f0; border: none; }
+.dark .search-input::placeholder { color: #9ca3af; }
+.dark .engine-select { background: #374151; color: #e2e8f0; }
+.dark .engine-select option { background: #374151; color: #e2e8f0; }
+.dark .content-area { background: #1a1a1a; }
+.dark .site-card { background: #374151; border: 1px solid #4b5563; color: #e2e8f0; }
+.dark .site-card:hover { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4); }
+.dark .site-card::before { background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15)); }
+.dark .site-name { color: #e2e8f0; }
+.dark .site-description { color: #9ca3af; }
+.dark .site-icon { background: #4b5563; }
+.dark .category-title { color: #e2e8f0; }
+.dark .mobile-menu { background: #1e293b; box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3); }
+.dark .mobile-category-item { border-bottom: 1px solid #374151; }
+.dark .mobile-category-item:hover { background: #374151; }
+.dark .mobile-category-item .category-name { color: #e2e8f0; }
+.dark .icp-footer { background: #1e293b; border-top-color: #374151; }
+.dark .icp-footer a { color: #9ca3af; }
+.dark .icp-footer a:hover { color: #60a5fa; }
+.dark .loading, .dark .error { color: #9ca3af; }
+.dark .retry-btn { background: #3b82f6; color: white; }
+.dark .retry-btn:hover { background: #2563eb; }
+.dark .lock-container { background: #0f172a; }
+.dark .lock-box { background: #1e293b; color: #e2e8f0; }
+.dark .lock-box h1 { color: #e2e8f0; }
+.dark .lock-description { color: #94a3b8; }
+.dark .lock-box .form-group label { color: #cbd5e1; }
+.dark .lock-box .form-input { background: #374151; border: 2px solid #4b5563; color: #e2e8f0; }
+.dark .lock-box .form-input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+.dark .unlock-btn { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); }
+.dark .unlock-btn:hover:not(:disabled) { box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4); }
 </style>
