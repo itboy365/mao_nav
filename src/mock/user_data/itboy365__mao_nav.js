@@ -1180,7 +1180,7 @@ export const mockData = {
       ]
     }
   ],
-  "title": "⭐ 便民导航",
+  "title": "便民导航",
   "search": "bing",
   "icp": ""
 }
