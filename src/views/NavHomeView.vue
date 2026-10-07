@@ -82,10 +82,10 @@
           <div class="search-engine-selector">
             <img :src="searchEngines[selectedEngine].icon" :alt="selectedEngine" class="engine-logo" />
             <select v-model="selectedEngine" class="engine-select">
-              <option value="google">Google</option>
-              <option value="baidu">Baidu</option>
               <option value="bing">Bing</option>
+              <option value="baidu">百度</option>
               <option value="duckduckgo">DuckDuckGo</option>
+              <option value="google">Google</option>
             </select>
           </div>
           <input
@@ -239,10 +239,10 @@ const unlocking = ref(false)
 const unlockError = ref('')
 
 const searchEngines = {
-  google: { url: 'https://www.google.com/search?q=', icon: googleLogo, placeholder: 'Google (点logo切换搜索引擎' },
-  baidu: { url: 'https://www.baidu.com/s?wd=', icon: baiduLogo, placeholder: '百度一下(点logo切换搜索引擎' },
-  bing: { url: 'https://www.bing.com/search?q=', icon: bingLogo, placeholder: 'Bing (点logo切换搜索引擎)' },
-  duckduckgo: { url: 'https://duckduckgo.com/?q=', icon: duckLogo, placeholder: 'DuckDuckGo (点logo切换搜索引擎)' }
+  bing: { url: 'https://www.bing.com/search?q=', icon: bingLogo, placeholder: 'Bing 搜索' },
+  baidu: { url: 'https://www.baidu.com/s?wd=', icon: baiduLogo, placeholder: '百度一下' },
+  duckduckgo: { url: 'https://duckduckgo.com/?q=', icon: duckLogo, placeholder: 'DuckDuckGo 搜索' },
+  google: { url: 'https://www.google.com/search?q=', icon: googleLogo, placeholder: 'Google 搜索' }
 }
 
 const smoothScrollTo = (container, targetTop, duration = 600) => {
