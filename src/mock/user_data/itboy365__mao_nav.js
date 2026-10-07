@@ -813,7 +813,7 @@ export const mockData = {
           "name": "中国领事服务网",
           "url": "https://cs.mfa.gov.cn",
           "description": "护照、签证、海外中国公民服务",
-          "icon": "https://www.faviconextractor.com/favicon/cs.mfa.gov.cn"
+          "icon": "🌐"
         },
         {
           "id": "hmo",
@@ -863,21 +863,21 @@ export const mockData = {
           "name": "国家体育总局",
           "url": "https://www.sport.gov.cn",
           "description": "国家体育总局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.sport.gov.cn"
+          "icon": "🏅"
         },
         {
           "id": "nea",
           "name": "国家能源局",
           "url": "https://www.nea.gov.cn",
           "description": "国家能源局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.nea.gov.cn"
+          "icon": "⚡"
         },
         {
           "id": "scs",
           "name": "国家公务员局",
           "url": "https://www.scs.gov.cn",
           "description": "公务员考试录用官方平台",
-          "icon": "https://www.faviconextractor.com/favicon/www.scs.gov.cn"
+          "icon": "👮"
         },
         {
           "id": "std-samr",
@@ -919,7 +919,7 @@ export const mockData = {
           "name": "国务院参事室",
           "url": "http://www.counsellor.gov.cn",
           "description": "国务院参事室官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.counsellor.gov.cn"
+          "icon": "📋"
         },
         {
           "id": "ggj",
@@ -955,14 +955,14 @@ export const mockData = {
           "name": "中国共青团",
           "url": "https://www.gqt.org.cn",
           "description": "共青团中央官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.gqt.org.cn"
+          "icon": "🚩"
         },
         {
           "id": "women",
           "name": "中华全国妇女联合会",
           "url": "https://www.women.org.cn",
           "description": "全国妇联官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.women.org.cn"
+          "icon": "👩"
         },
         {
           "id": "redcross",
@@ -1004,7 +1004,7 @@ export const mockData = {
           "name": "中国人民对外友好协会",
           "url": "https://www.cpaffc.org.cn",
           "description": "对外友协官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.cpaffc.org.cn"
+          "icon": "🤝"
         },
         {
           "id": "acfic",
@@ -1018,7 +1018,7 @@ export const mockData = {
           "name": "中国法学会",
           "url": "https://www.chinalaw.org.cn",
           "description": "法学研究、法治宣传",
-          "icon": "https://www.faviconextractor.com/favicon/www.chinalaw.org.cn"
+          "icon": "⚖️"
         },
         {
           "id": "zgjx",
@@ -1032,7 +1032,7 @@ export const mockData = {
           "name": "中国宋庆龄基金会",
           "url": "https://www.sclf.org",
           "description": "青少年公益、国际交流",
-          "icon": "https://www.faviconextractor.com/favicon/www.sclf.org"
+          "icon": "🌟"
         }
       ]
     },
@@ -1061,14 +1061,14 @@ export const mockData = {
           "name": "国家烟草专卖局",
           "url": "http://www.tobacco.gov.cn",
           "description": "国家烟草专卖局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.tobacco.gov.cn"
+          "icon": "🚬"
         },
         {
           "id": "saac",
           "name": "国家档案局",
           "url": "https://www.saac.gov.cn",
           "description": "国家档案局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.saac.gov.cn"
+          "icon": "📁"
         },
         {
           "id": "chinamine",
