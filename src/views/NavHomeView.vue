@@ -567,9 +567,10 @@ onUnmounted(() => {
 /* 移动端底部：个人主页入口 */
 .mobile-footer {
   flex-shrink: 0;
-  padding: 0 20px 20px;
+  padding: 16px 20px 20px;
   border-top: 1px solid #e9ecef;
   margin-top: 10px;
+  background: #fafbfc;
 }
 
 .mobile-home-link {
@@ -579,15 +580,18 @@ onUnmounted(() => {
   color: #2c3e50;
   text-decoration: none;
   padding: 14px 16px;
-  border-radius: 8px;
-  background: #f8f9fa;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f0f4f8 0%, #e8eef5 100%);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
   font-size: 15px;
   font-weight: 500;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .mobile-home-link:hover {
-  background: #e9ecef;
+  background: linear-gradient(135deg, #e8eef5 0%, #dce5ee 100%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
 }
 
 .mobile-home-link .home-icon {
@@ -720,9 +724,16 @@ onUnmounted(() => {
 .dark .mobile-category-item { border-bottom: 1px solid #374151; }
 .dark .mobile-category-item:hover { background: #374151; }
 .dark .mobile-category-item .category-name { color: #e2e8f0; }
-.dark .mobile-footer { border-top-color: #374151; }
-.dark .mobile-home-link { background: #374151; color: #e2e8f0; }
-.dark .mobile-home-link:hover { background: #4b5563; }
+.dark .mobile-footer { background: #18202e; border-top-color: #374151; }
+.dark .mobile-home-link {
+  background: linear-gradient(135deg, #374151 0%, #2d3748 100%);
+  color: #e2e8f0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+.dark .mobile-home-link:hover {
+  background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
 .dark .icp-footer { background: #1e293b; border-top-color: #374151; }
 .dark .icp-footer a { color: #9ca3af; }
 .dark .icp-footer a:hover { color: #60a5fa; }
