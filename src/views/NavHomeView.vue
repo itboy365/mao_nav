@@ -28,10 +28,12 @@
 
   <!-- 正常导航界面 -->
   <div v-else class="nav-home" :class="{ 'sidebar-collapsed': sidebarCollapsed }">
+    <!-- 左侧边栏（桌面端） -->
     <aside class="sidebar">
+      <!-- Logo区域 -->
       <div class="logo-section">
         <img src="/logo.png" alt="logo" class="logo" />
-        <h1 class="site-title">{{ title || '我的后花园' }}</h1>
+        <h1 class="site-title">{{ title || '便民导航' }}</h1>
         <button
           class="collapse-btn"
           @click="sidebarCollapsed = !sidebarCollapsed"
@@ -41,6 +43,7 @@
         </button>
       </div>
 
+      <!-- 分类导航 -->
       <nav class="category-nav">
         <h2 class="nav-title">分类导航</h2>
         <ul class="category-list">
@@ -56,6 +59,7 @@
         </ul>
       </nav>
 
+      <!-- 桌面端底部：个人主页入口 -->
       <div class="sidebar-footer">
         <a
           href="https://itboy.top"
@@ -70,7 +74,9 @@
       </div>
     </aside>
 
+    <!-- 右侧主内容区 -->
     <main class="main-content">
+      <!-- 顶部搜索栏 -->
       <header class="search-header">
         <div class="search-container">
           <div class="search-engine-selector">
@@ -91,6 +97,7 @@
           />
         </div>
 
+        <!-- 主题切换按钮 -->
         <button class="theme-toggle-btn" @click="themeStore.toggleTheme" :title="themeStore.isDarkMode ? '切换到日间模式' : '切换到夜间模式'">
           <svg v-if="!themeStore.isDarkMode" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z"/>
@@ -100,17 +107,18 @@
           </svg>
         </button>
 
+        <!-- 移动端菜单按钮 -->
         <button class="mobile-menu-btn" @click="toggleMobileMenu">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </button>
 
+        <!-- 移动端分类菜单 -->
         <div class="mobile-menu" :class="{ active: showMobileMenu }">
           <div class="mobile-menu-header">
             <div class="header-left">
               <h3>分类导航</h3>
-              <span class="header-home-icon" @click="openHome">🏡</span>
             </div>
             <button class="close-btn" @click="closeMobileMenu">×</button>
           </div>
@@ -125,22 +133,35 @@
               <span class="category-name">{{ category.name }}</span>
             </li>
           </ul>
+
+          <!-- 移动端底部：个人主页入口 -->
+          <div class="mobile-footer">
+            <a href="https://itboy.top" target="_blank" rel="noopener noreferrer" class="mobile-home-link">
+              <span>我的后花园</span>
+              <span class="home-icon">🏡</span>
+            </a>
+          </div>
         </div>
 
+        <!-- 移动端菜单遮罩 -->
         <div class="mobile-menu-overlay" :class="{ active: showMobileMenu }" @click="closeMobileMenu"></div>
       </header>
 
+      <!-- 导航内容区 -->
       <div class="content-area">
+        <!-- 加载状态 -->
         <div v-if="loading" class="loading">
           <div class="loading-spinner"></div>
           <p>加载中...</p>
         </div>
 
+        <!-- 错误状态 -->
         <div v-else-if="error" class="error">
           <p>{{ error }}</p>
           <button @click="fetchCategories" class="retry-btn">重试</button>
         </div>
 
+        <!-- 分类内容 -->
         <div v-else class="categories-container">
           <section
             v-for="category in categories"
@@ -163,11 +184,11 @@
                 class="site-card"
               >
                 <div class="site-icon">
-                  <img 
-                    v-if="site.icon && (site.icon.startsWith('http') || site.icon.startsWith('/'))" 
-                    :src="site.icon" 
-                    :alt="site.name" 
-                    @error="handleImageError($event, site.name)" 
+                  <img
+                    v-if="site.icon && (site.icon.startsWith('http') || site.icon.startsWith('/'))"
+                    :src="site.icon"
+                    :alt="site.name"
+                    @error="handleImageError"
                   />
                   <span v-else class="site-emoji">{{ site.icon }}</span>
                 </div>
@@ -181,6 +202,7 @@
         </div>
       </div>
 
+      <!-- 备案号 -->
       <footer v-if="icpNumber" class="icp-footer">
         <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">
           {{ icpNumber }}
@@ -209,7 +231,7 @@ const showMobileMenu = ref(false)
 // 侧边栏收起状态
 const sidebarCollapsed = ref(false)
 
-// 锁定功能（未配置 VITE_OPEN_LOCK 时自动跳过）
+// 锁定功能
 const isLocked = ref(false)
 const isUnlocked = ref(false)
 const unlockPassword = ref('')
@@ -296,38 +318,9 @@ const handleSearch = () => {
   window.open(engine.url + encodeURIComponent(searchQuery.value), '_blank')
 }
 
-// 图标加载失败 → 显示站点名首字 + 彩色背景
-const handleImageError = (event, name) => {
-  const parent = event.target.parentElement
-  // 避免重复添加
-  if (parent.querySelector('.site-emoji')) {
-    event.target.style.display = 'none'
-    return
-  }
-  event.target.style.display = 'none'
-
-  const first = (name || '?').charAt(0)
-  const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c', '#e67e22', '#34495e', '#16a085', '#c0392b']
-  let hash = 0
-  for (let i = 0; i < (name || '').length; i++) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash)
-  }
-  const color = colors[Math.abs(hash) % colors.length]
-
-  const span = document.createElement('span')
-  span.className = 'site-emoji site-emoji-letter'
-  span.textContent = first
-  span.style.backgroundColor = color
-  span.style.color = '#fff'
-  span.style.width = '100%'
-  span.style.height = '100%'
-  span.style.display = 'flex'
-  span.style.alignItems = 'center'
-  span.style.justifyContent = 'center'
-  span.style.fontSize = '22px'
-  span.style.fontWeight = 'bold'
-  span.style.borderRadius = '8px'
-  parent.appendChild(span)
+const handleImageError = (event) => {
+  event.target.src = '/favicon.ico'
+  event.target.onerror = null
 }
 
 const toggleMobileMenu = () => {
@@ -343,10 +336,6 @@ const closeMobileMenu = () => {
 const scrollToCategoryMobile = (categoryId) => {
   closeMobileMenu()
   setTimeout(() => scrollToCategory(categoryId), 200)
-}
-
-const openHome = () => {
-  window.open('https://itboy.top', '_blank')
 }
 
 onMounted(async () => {
@@ -456,7 +445,7 @@ onUnmounted(() => {
 .category-icon { font-size: 18px; margin-right: 12px; width: 20px; text-align: center; }
 .category-name { font-size: 15px; font-weight: 500; white-space: nowrap; }
 
-/* 左侧边栏底部：个人主页 */
+/* 桌面端底部：个人主页 */
 .sidebar-footer {
   padding: 16px 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -559,13 +548,6 @@ onUnmounted(() => {
 }
 .header-left { display: flex; align-items: center; gap: 12px; }
 .mobile-menu-header h3 { margin: 0; font-size: 18px; font-weight: 600; }
-.header-home-icon {
-  font-size: 22px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  display: inline-block;
-}
-.header-home-icon:hover { transform: scale(1.2); }
 .close-btn {
   background: none; border: none; color: white; font-size: 24px;
   cursor: pointer; padding: 0; width: 30px; height: 30px;
@@ -573,7 +555,7 @@ onUnmounted(() => {
   border-radius: 4px; transition: background-color 0.2s ease;
 }
 .close-btn:hover { background: rgba(255, 255, 255, 0.1); }
-.mobile-category-list { list-style: none; padding: 0; margin: 0; flex: 1; overflow-y: auto; padding-bottom: 160px; }
+.mobile-category-list { list-style: none; padding: 0; margin: 0; flex: 1; overflow-y: auto; padding-bottom: 20px; }
 .mobile-category-item {
   display: flex; align-items: center; padding: 16px 20px;
   cursor: pointer; transition: background-color 0.2s ease; border-bottom: 1px solid #f8f9fa;
@@ -581,6 +563,38 @@ onUnmounted(() => {
 .mobile-category-item:hover { background: #f8f9fa; }
 .mobile-category-item .category-icon { font-size: 20px; margin-right: 12px; width: 24px; text-align: center; }
 .mobile-category-item .category-name { font-size: 16px; font-weight: 500; color: #2c3e50; }
+
+/* 移动端底部：个人主页入口 */
+.mobile-footer {
+  flex-shrink: 0;
+  padding: 0 20px 20px;
+  border-top: 1px solid #e9ecef;
+  margin-top: 10px;
+}
+
+.mobile-home-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2c3e50;
+  text-decoration: none;
+  padding: 14px 16px;
+  border-radius: 8px;
+  background: #f8f9fa;
+  font-size: 15px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.mobile-home-link:hover {
+  background: #e9ecef;
+}
+
+.mobile-home-link .home-icon {
+  margin-left: 8px;
+  font-size: 20px;
+  line-height: 1;
+}
 
 .mobile-menu-overlay {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -627,25 +641,18 @@ onUnmounted(() => {
   position: relative; z-index: 1;
 }
 .site-icon img { width: 32px; height: 32px; object-fit: contain; }
-.site-info { flex: 1; min-width: 0; overflow: hidden; position: relative; z-index: 1; }
-.site-name { font-size: 18px; font-weight: 600; margin: 0 0 5px 0; color: #2c3e50; }
-.site-description {
-  font-size: 14px; color: #7f8c8d; margin: 0; line-height: 1.4;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-
-/* emoji 图标样式 */
 .site-emoji {
   font-size: 28px;
   line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
 }
-.site-emoji-letter {
-  border-radius: 8px;
+.site-info { flex: 1; min-width: 0; overflow: hidden; position: relative; z-index: 1; }
+.site-name { font-size: 18px; font-weight: 600; margin: 0 0 5px 0; color: #2c3e50; }
+.site-description {
+  font-size: 14px; color: #7f8c8d; margin: 0; line-height: 1.4;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
 /* 备案信息 */
@@ -713,6 +720,9 @@ onUnmounted(() => {
 .dark .mobile-category-item { border-bottom: 1px solid #374151; }
 .dark .mobile-category-item:hover { background: #374151; }
 .dark .mobile-category-item .category-name { color: #e2e8f0; }
+.dark .mobile-footer { border-top-color: #374151; }
+.dark .mobile-home-link { background: #374151; color: #e2e8f0; }
+.dark .mobile-home-link:hover { background: #4b5563; }
 .dark .icp-footer { background: #1e293b; border-top-color: #374151; }
 .dark .icp-footer a { color: #9ca3af; }
 .dark .icp-footer a:hover { color: #60a5fa; }
