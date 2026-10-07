@@ -79,6 +79,20 @@
       <!-- 顶部搜索栏 -->
       <header class="search-header">
         <div class="search-container">
+          <!-- PC端：站内/站外切换按钮 -->
+          <div class="search-mode-tabs">
+            <button
+              class="search-mode-btn"
+              :class="{ active: searchMode === 'inside' }"
+              @click="switchMode('inside')"
+            >站内</button>
+            <button
+              class="search-mode-btn"
+              :class="{ active: searchMode === 'outside' }"
+              @click="switchMode('outside')"
+            >站外</button>
+          </div>
+
           <div class="search-engine-selector">
             <img :src="searchEngines[selectedEngine].icon" :alt="selectedEngine" class="engine-logo" />
             <select v-model="selectedEngine" class="engine-select">
@@ -91,7 +105,7 @@
           <input
             type="text"
             v-model="searchQuery"
-            :placeholder="searchEngines[selectedEngine].placeholder"
+            :placeholder="currentPlaceholder"
             class="search-input"
             @keyup.enter="handleSearch"
           />
@@ -165,7 +179,7 @@
         <!-- 分类内容 -->
         <div v-else class="categories-container">
           <!-- 无结果提示 -->
-          <div v-if="searchQuery && filteredCategories.length === 0" class="no-result">
+          <div v-if="searchQuery && searchMode === 'inside' && filteredCategories.length === 0" class="no-result">
             <div class="no-result-icon">🔍</div>
             <p class="no-result-text">没有找到「{{ searchQuery }}」相关的站点</p>
             <p class="no-result-tip">试试搜索「医保」「社保」「12306」「公积金」</p>
@@ -173,7 +187,7 @@
 
           <!-- 有结果时显示 -->
           <template v-else>
-            <div v-if="searchQuery" class="search-result-count">
+            <div v-if="searchQuery && searchMode === 'inside'" class="search-result-count">
               找到 {{ filteredCategories.reduce((sum, c) => sum + c.sites.length, 0) }} 个相关站点
             </div>
 
@@ -246,6 +260,9 @@ const showMobileMenu = ref(false)
 // 侧边栏收起状态
 const sidebarCollapsed = ref(false)
 
+// 搜索模式：'inside' 站内筛选 | 'outside' 站外搜索
+const searchMode = ref('inside')
+
 // 锁定功能
 const isLocked = ref(false)
 const isUnlocked = ref(false)
@@ -254,14 +271,23 @@ const unlocking = ref(false)
 const unlockError = ref('')
 
 const searchEngines = {
-  bing: { url: 'https://www.bing.com/search?q=', icon: bingLogo, placeholder: '输入关键词筛选 | 回车搜索' },
-  baidu: { url: 'https://www.baidu.com/s?wd=', icon: baiduLogo, placeholder: '输入关键词筛选 | 回车搜索' },
-  duckduckgo: { url: 'https://duckduckgo.com/?q=', icon: duckLogo, placeholder: '输入关键词筛选 | 回车搜索' },
-  google: { url: 'https://www.google.com/search?q=', icon: googleLogo, placeholder: '输入关键词筛选 | 回车搜索' }
+  bing: { url: 'https://www.bing.com/search?q=', icon: bingLogo, name: 'Bing' },
+  baidu: { url: 'https://www.baidu.com/s?wd=', icon: baiduLogo, name: '百度' },
+  duckduckgo: { url: 'https://duckduckgo.com/?q=', icon: duckLogo, name: 'DuckDuckGo' },
+  google: { url: 'https://www.google.com/search?q=', icon: googleLogo, name: 'Google' }
 }
 
-// 站内搜索：根据关键词实时过滤站点
+// 动态 placeholder：跟随搜索模式
+const currentPlaceholder = computed(() => {
+  if (searchMode.value === 'inside') {
+    return '搜索本站站点...'
+  }
+  return `在 ${searchEngines[selectedEngine.value].name} 搜索内容`
+})
+
+// 站内搜索：只在"站内"模式下筛选
 const filteredCategories = computed(() => {
+  if (searchMode.value !== 'inside') return categories.value
   const q = searchQuery.value.trim().toLowerCase()
   if (!q) return categories.value
 
@@ -276,6 +302,14 @@ const filteredCategories = computed(() => {
     })
     .filter(cat => cat.sites.length > 0)
 })
+
+// 切换搜索模式
+const switchMode = (mode) => {
+  if (searchMode.value === mode) return
+  searchMode.value = mode
+  // 切换模式时清空输入，避免混淆
+  searchQuery.value = ''
+}
 
 const smoothScrollTo = (container, targetTop, duration = 600) => {
   const startTop = container.scrollTop
@@ -554,6 +588,39 @@ onUnmounted(() => {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); flex: 1;
 }
 @media (max-width: 768px) { .search-container { margin: 0; max-width: none; } }
+
+/* 站内/站外切换按钮（仅PC端显示） */
+.search-mode-tabs {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  border-right: 1px solid #e9ecef;
+  padding: 0 4px;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.search-mode-btn {
+  background: none;
+  border: none;
+  padding: 6px 10px;
+  font-size: 13px;
+  color: #7f8c8d;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-family: inherit;
+}
+.search-mode-btn.active {
+  background: white;
+  color: #2c3e50;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+.search-mode-btn:hover:not(.active) {
+  color: #2c3e50;
+}
+
 .search-engine-selector {
   position: relative; display: flex; align-items: center;
   background: #f8f9fa; border-right: 1px solid #e9ecef; transition: background-color 0.2s ease;
@@ -561,7 +628,7 @@ onUnmounted(() => {
 .search-engine-selector:hover { background: #e9ecef; }
 .engine-logo { width: 24px; height: 24px; margin: 8px; object-fit: contain; pointer-events: none; border-radius: 4px; }
 .engine-select { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; border: none; outline: none; background: transparent; }
-.search-input { flex: 1; border: none; padding: 12px 16px; font-size: 16px; outline: none; background: white; }
+.search-input { flex: 1; border: none; padding: 12px 16px; font-size: 16px; outline: none; background: white; min-width: 0; }
 .search-input::placeholder { color: #95a5a6; }
 
 /* 清空按钮 */
@@ -763,6 +830,10 @@ onUnmounted(() => {
   }
   .content-area { flex: 1; padding: 20px 15px; padding-top: 100px; padding-bottom: 300px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
   .mobile-menu-btn { display: block; flex-shrink: 0; }
+
+  /* 手机端隐藏"站内/站外"按钮 */
+  .search-mode-tabs { display: none; }
+
   .sites-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
   .site-card { padding: 12px; flex-direction: column; text-align: center; }
   .site-card .site-icon { margin-right: 0; margin-bottom: 8px; }
@@ -797,6 +868,13 @@ onUnmounted(() => {
 .dark .mobile-menu-btn { color: #e2e8f0; }
 .dark .mobile-menu-btn:hover { background: rgba(255, 255, 255, 0.1); }
 .dark .search-container { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); }
+
+/* 暗色模式：站内/站外按钮 */
+.dark .search-mode-tabs { background: #374151; border-right-color: #4b5563; }
+.dark .search-mode-btn { color: #9ca3af; }
+.dark .search-mode-btn.active { background: #1e293b; color: #e2e8f0; }
+.dark .search-mode-btn:hover:not(.active) { color: #e2e8f0; }
+
 .dark .search-engine-selector { background: #374151; border-right: 1px solid #4b5563; }
 .dark .search-engine-selector:hover { background: #4b5563; }
 .dark .search-input { background: #374151; color: #e2e8f0; border: none; }
