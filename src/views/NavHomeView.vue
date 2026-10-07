@@ -28,9 +28,7 @@
 
   <!-- 正常导航界面 -->
   <div v-else class="nav-home" :class="{ 'sidebar-collapsed': sidebarCollapsed }">
-    <!-- 左侧边栏 -->
     <aside class="sidebar">
-      <!-- Logo区域 -->
       <div class="logo-section">
         <img src="/logo.png" alt="logo" class="logo" />
         <h1 class="site-title">{{ title || '我的后花园' }}</h1>
@@ -43,7 +41,6 @@
         </button>
       </div>
 
-      <!-- 分类导航 -->
       <nav class="category-nav">
         <h2 class="nav-title">分类导航</h2>
         <ul class="category-list">
@@ -59,7 +56,6 @@
         </ul>
       </nav>
 
-      <!-- 左侧边栏底部：个人主页入口 -->
       <div class="sidebar-footer">
         <a
           href="https://itboy.top"
@@ -74,9 +70,7 @@
       </div>
     </aside>
 
-    <!-- 右侧主内容区 -->
     <main class="main-content">
-      <!-- 顶部搜索栏 -->
       <header class="search-header">
         <div class="search-container">
           <div class="search-engine-selector">
@@ -97,7 +91,6 @@
           />
         </div>
 
-        <!-- 主题切换按钮 -->
         <button class="theme-toggle-btn" @click="themeStore.toggleTheme" :title="themeStore.isDarkMode ? '切换到日间模式' : '切换到夜间模式'">
           <svg v-if="!themeStore.isDarkMode" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z"/>
@@ -107,14 +100,12 @@
           </svg>
         </button>
 
-        <!-- 移动端菜单按钮 -->
         <button class="mobile-menu-btn" @click="toggleMobileMenu">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </button>
 
-        <!-- 移动端分类菜单 -->
         <div class="mobile-menu" :class="{ active: showMobileMenu }">
           <div class="mobile-menu-header">
             <div class="header-left">
@@ -136,25 +127,20 @@
           </ul>
         </div>
 
-        <!-- 移动端菜单遮罩 -->
         <div class="mobile-menu-overlay" :class="{ active: showMobileMenu }" @click="closeMobileMenu"></div>
       </header>
 
-      <!-- 导航内容区 -->
       <div class="content-area">
-        <!-- 加载状态 -->
         <div v-if="loading" class="loading">
           <div class="loading-spinner"></div>
           <p>加载中...</p>
         </div>
 
-        <!-- 错误状态 -->
         <div v-else-if="error" class="error">
           <p>{{ error }}</p>
           <button @click="fetchCategories" class="retry-btn">重试</button>
         </div>
 
-        <!-- 分类内容 -->
         <div v-else class="categories-container">
           <section
             v-for="category in categories"
@@ -177,7 +163,13 @@
                 class="site-card"
               >
                 <div class="site-icon">
-                  <img :src="site.icon" :alt="site.name" @error="handleImageError" />
+                  <img 
+                    v-if="site.icon && (site.icon.startsWith('http') || site.icon.startsWith('/'))" 
+                    :src="site.icon" 
+                    :alt="site.name" 
+                    @error="handleImageError($event, site.name)" 
+                  />
+                  <span v-else class="site-emoji">{{ site.icon }}</span>
                 </div>
                 <div class="site-info">
                   <h3 class="site-name">{{ site.name }}</h3>
@@ -189,7 +181,6 @@
         </div>
       </div>
 
-      <!-- 备案号 -->
       <footer v-if="icpNumber" class="icp-footer">
         <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">
           {{ icpNumber }}
@@ -273,7 +264,6 @@ const checkLockStatus = () => {
     const savedUnlock = localStorage.getItem('nav_unlocked')
     if (savedUnlock === 'true') isUnlocked.value = true
   } else {
-    // 未配置 VITE_OPEN_LOCK，直接进入导航
     isLocked.value = false
     isUnlocked.value = true
   }
@@ -306,9 +296,38 @@ const handleSearch = () => {
   window.open(engine.url + encodeURIComponent(searchQuery.value), '_blank')
 }
 
-const handleImageError = (event) => {
-  event.target.src = '/favicon.ico'
-  event.target.onerror = null
+// 图标加载失败 → 显示站点名首字 + 彩色背景
+const handleImageError = (event, name) => {
+  const parent = event.target.parentElement
+  // 避免重复添加
+  if (parent.querySelector('.site-emoji')) {
+    event.target.style.display = 'none'
+    return
+  }
+  event.target.style.display = 'none'
+
+  const first = (name || '?').charAt(0)
+  const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c', '#e67e22', '#34495e', '#16a085', '#c0392b']
+  let hash = 0
+  for (let i = 0; i < (name || '').length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash)
+  }
+  const color = colors[Math.abs(hash) % colors.length]
+
+  const span = document.createElement('span')
+  span.className = 'site-emoji site-emoji-letter'
+  span.textContent = first
+  span.style.backgroundColor = color
+  span.style.color = '#fff'
+  span.style.width = '100%'
+  span.style.height = '100%'
+  span.style.display = 'flex'
+  span.style.alignItems = 'center'
+  span.style.justifyContent = 'center'
+  span.style.fontSize = '22px'
+  span.style.fontWeight = 'bold'
+  span.style.borderRadius = '8px'
+  parent.appendChild(span)
 }
 
 const toggleMobileMenu = () => {
@@ -613,6 +632,20 @@ onUnmounted(() => {
 .site-description {
   font-size: 14px; color: #7f8c8d; margin: 0; line-height: 1.4;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* emoji 图标样式 */
+.site-emoji {
+  font-size: 28px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.site-emoji-letter {
+  border-radius: 8px;
 }
 
 /* 备案信息 */
