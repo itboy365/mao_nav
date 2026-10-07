@@ -95,6 +95,7 @@
             class="search-input"
             @keyup.enter="handleSearch"
           />
+          <button v-if="searchQuery" class="clear-btn" @click="clearSearch" title="清空">×</button>
         </div>
 
         <!-- 主题切换按钮 -->
@@ -163,42 +164,56 @@
 
         <!-- 分类内容 -->
         <div v-else class="categories-container">
-          <section
-            v-for="category in categories"
-            :key="category.id"
-            class="category-section"
-            :id="`category-${category.id}`"
-          >
-            <h2 class="category-title">
-              <span class="category-icon">{{ category.icon }}</span>
-              <span class="category-name">{{ category.name }}</span>
-            </h2>
+          <!-- 无结果提示 -->
+          <div v-if="searchQuery && filteredCategories.length === 0" class="no-result">
+            <div class="no-result-icon">🔍</div>
+            <p class="no-result-text">没有找到「{{ searchQuery }}」相关的站点</p>
+            <p class="no-result-tip">试试搜索「医保」「社保」「12306」「公积金」</p>
+          </div>
 
-            <div class="sites-grid">
-              <a
-                v-for="site in category.sites"
-                :key="site.id"
-                :href="site.url"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="site-card"
-              >
-                <div class="site-icon">
-                  <img
-                    v-if="site.icon && (site.icon.startsWith('http') || site.icon.startsWith('/'))"
-                    :src="site.icon"
-                    :alt="site.name"
-                    @error="handleImageError"
-                  />
-                  <span v-else class="site-emoji">{{ site.icon }}</span>
-                </div>
-                <div class="site-info">
-                  <h3 class="site-name">{{ site.name }}</h3>
-                  <p class="site-description">{{ site.description }}</p>
-                </div>
-              </a>
+          <!-- 有结果时显示 -->
+          <template v-else>
+            <div v-if="searchQuery" class="search-result-count">
+              找到 {{ filteredCategories.reduce((sum, c) => sum + c.sites.length, 0) }} 个相关站点
             </div>
-          </section>
+
+            <section
+              v-for="category in filteredCategories"
+              :key="category.id"
+              class="category-section"
+              :id="`category-${category.id}`"
+            >
+              <h2 class="category-title">
+                <span class="category-icon">{{ category.icon }}</span>
+                <span class="category-name">{{ category.name }}</span>
+              </h2>
+
+              <div class="sites-grid">
+                <a
+                  v-for="site in category.sites"
+                  :key="site.id"
+                  :href="site.url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="site-card"
+                >
+                  <div class="site-icon">
+                    <img
+                      v-if="site.icon && (site.icon.startsWith('http') || site.icon.startsWith('/'))"
+                      :src="site.icon"
+                      :alt="site.name"
+                      @error="handleImageError"
+                    />
+                    <span v-else class="site-emoji">{{ site.icon }}</span>
+                  </div>
+                  <div class="site-info">
+                    <h3 class="site-name">{{ site.name }}</h3>
+                    <p class="site-description">{{ site.description }}</p>
+                  </div>
+                </a>
+              </div>
+            </section>
+          </template>
         </div>
       </div>
 
@@ -213,7 +228,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useNavigation } from '@/apis/useNavigation.js'
 import { useThemeStore } from '@/stores/counter.js'
 import googleLogo from '@/assets/goolge.png'
@@ -239,11 +254,28 @@ const unlocking = ref(false)
 const unlockError = ref('')
 
 const searchEngines = {
-  bing: { url: 'https://www.bing.com/search?q=', icon: bingLogo, placeholder: 'Bing 搜索' },
-  baidu: { url: 'https://www.baidu.com/s?wd=', icon: baiduLogo, placeholder: '百度一下' },
-  duckduckgo: { url: 'https://duckduckgo.com/?q=', icon: duckLogo, placeholder: 'DuckDuckGo 搜索' },
-  google: { url: 'https://www.google.com/search?q=', icon: googleLogo, placeholder: 'Google 搜索' }
+  bing: { url: 'https://www.bing.com/search?q=', icon: bingLogo, placeholder: '输入关键词筛选 | 回车搜索' },
+  baidu: { url: 'https://www.baidu.com/s?wd=', icon: baiduLogo, placeholder: '输入关键词筛选 | 回车搜索' },
+  duckduckgo: { url: 'https://duckduckgo.com/?q=', icon: duckLogo, placeholder: '输入关键词筛选 | 回车搜索' },
+  google: { url: 'https://www.google.com/search?q=', icon: googleLogo, placeholder: '输入关键词筛选 | 回车搜索' }
 }
+
+// 站内搜索：根据关键词实时过滤站点
+const filteredCategories = computed(() => {
+  const q = searchQuery.value.trim().toLowerCase()
+  if (!q) return categories.value
+
+  return categories.value
+    .map(cat => {
+      const matchedSites = cat.sites.filter(site =>
+        site.name.toLowerCase().includes(q) ||
+        (site.description && site.description.toLowerCase().includes(q)) ||
+        (site.url && site.url.toLowerCase().includes(q))
+      )
+      return { ...cat, sites: matchedSites }
+    })
+    .filter(cat => cat.sites.length > 0)
+})
 
 const smoothScrollTo = (container, targetTop, duration = 600) => {
   const startTop = container.scrollTop
@@ -316,6 +348,11 @@ const handleSearch = () => {
   if (!searchQuery.value.trim()) return
   const engine = searchEngines[selectedEngine.value]
   window.open(engine.url + encodeURIComponent(searchQuery.value), '_blank')
+}
+
+// 清空搜索框
+const clearSearch = () => {
+  searchQuery.value = ''
 }
 
 const handleImageError = (event) => {
@@ -527,6 +564,54 @@ onUnmounted(() => {
 .search-input { flex: 1; border: none; padding: 12px 16px; font-size: 16px; outline: none; background: white; }
 .search-input::placeholder { color: #95a5a6; }
 
+/* 清空按钮 */
+.clear-btn {
+  background: none;
+  border: none;
+  padding: 0 16px;
+  font-size: 20px;
+  color: #95a5a6;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+}
+.clear-btn:hover { color: #2c3e50; }
+
+/* 无结果提示 */
+.no-result {
+  text-align: center;
+  padding: 60px 20px;
+  color: #7f8c8d;
+}
+.no-result-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+.no-result-text {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 12px 0;
+  color: #2c3e50;
+}
+.no-result-tip {
+  font-size: 14px;
+  color: #95a5a6;
+  margin: 0;
+}
+
+/* 搜索结果统计 */
+.search-result-count {
+  font-size: 14px;
+  color: #7f8c8d;
+  margin-bottom: 20px;
+  padding: 10px 16px;
+  background: #f0f4f8;
+  border-radius: 8px;
+  display: inline-block;
+}
+
 .mobile-menu-btn {
   display: none; background: none; border: none;
   color: #2c3e50; cursor: pointer; padding: 8px; border-radius: 4px; transition: background-color 0.2s ease;
@@ -687,6 +772,12 @@ onUnmounted(() => {
   .category-title .category-icon { font-size: 28px; margin-right: 12px; }
   .category-title .category-name { font-size: 22px; }
   .icp-footer { padding: 8px 15px; font-size: 12px; }
+  .search-input { font-size: 14px; padding: 10px 12px; }
+  .clear-btn { padding: 0 12px; font-size: 18px; }
+  .no-result { padding: 40px 15px; }
+  .no-result-icon { font-size: 36px; }
+  .no-result-text { font-size: 15px; }
+  .search-result-count { font-size: 13px; padding: 8px 12px; }
 }
 
 /* 主题切换按钮 */
@@ -710,6 +801,8 @@ onUnmounted(() => {
 .dark .search-engine-selector:hover { background: #4b5563; }
 .dark .search-input { background: #374151; color: #e2e8f0; border: none; }
 .dark .search-input::placeholder { color: #9ca3af; }
+.dark .clear-btn { color: #9ca3af; }
+.dark .clear-btn:hover { color: #e2e8f0; }
 .dark .engine-select { background: #374151; color: #e2e8f0; }
 .dark .engine-select option { background: #374151; color: #e2e8f0; }
 .dark .content-area { background: #1a1a1a; }
@@ -720,6 +813,10 @@ onUnmounted(() => {
 .dark .site-description { color: #9ca3af; }
 .dark .site-icon { background: #4b5563; }
 .dark .category-title { color: #e2e8f0; }
+.dark .no-result { color: #9ca3af; }
+.dark .no-result-text { color: #e2e8f0; }
+.dark .no-result-tip { color: #6b7280; }
+.dark .search-result-count { background: #374151; color: #9ca3af; }
 .dark .mobile-menu { background: #1e293b; box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3); }
 .dark .mobile-category-item { border-bottom: 1px solid #374151; }
 .dark .mobile-category-item:hover { background: #374151; }
