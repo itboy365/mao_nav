@@ -111,7 +111,7 @@ export const mockData = {
           "name": "国家医保服务平台",
           "url": "https://fuwu.nhsa.gov.cn",
           "description": "查医保、办跨省异地就医",
-          "icon": "https://www.faviconextractor.com/favicon/nhsa.gov.cn"
+          "icon": "💊"
         },
         {
           "id": "nhsa",
@@ -147,7 +147,7 @@ export const mockData = {
           "name": "国家卫生健康委",
           "url": "https://www.nhc.gov.cn",
           "description": "卫健委官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.nhc.gov.cn"
+          "icon": "🏥"
         },
         {
           "id": "nmpa",
@@ -168,7 +168,7 @@ export const mockData = {
           "name": "国家卫健委政务服务平台",
           "url": "https://zwfw.nhc.gov.cn",
           "description": "卫健委政务服务入口",
-          "icon": "https://www.faviconextractor.com/favicon/zwfw.nhc.gov.cn"
+          "icon": "📋"
         },
         {
           "id": "natcm",
@@ -261,7 +261,7 @@ export const mockData = {
           "name": "国家税务总局",
           "url": "https://www.chinatax.gov.cn",
           "description": "个人所得税、税务办理",
-          "icon": "https://www.faviconextractor.com/favicon/www.chinatax.gov.cn"
+          "icon": "💰"
         },
         {
           "id": "tax-12366",
@@ -376,7 +376,7 @@ export const mockData = {
           "name": "中国执行信息公开网",
           "url": "http://zxgk.court.gov.cn",
           "description": "最高法被执行人信息公开",
-          "icon": "⚖️"
+          "icon": "📜"
         },
         {
           "id": "customs-credit",
@@ -412,7 +412,7 @@ export const mockData = {
           "name": "中国地震台网",
           "url": "https://www.ceic.ac.cn",
           "description": "地震信息官方发布",
-          "icon": "🌍"
+          "icon": "🌋"
         }
       ]
     },
@@ -548,14 +548,14 @@ export const mockData = {
           "name": "民政部",
           "url": "https://www.mca.gov.cn",
           "description": "民政部官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.mca.gov.cn"
+          "icon": "🏛️"
         },
         {
           "id": "chinanpo",
           "name": "中国社会组织政务服务平台",
           "url": "https://chinanpo.mca.gov.cn",
           "description": "社会组织信息查询",
-          "icon": "https://www.faviconextractor.com/favicon/chinanpo.mca.gov.cn"
+          "icon": "🤝"
         },
         {
           "id": "cdpf",
@@ -1018,7 +1018,7 @@ export const mockData = {
           "name": "中国法学会",
           "url": "https://www.chinalaw.org.cn",
           "description": "法学研究、法治宣传",
-          "icon": "⚖️"
+          "icon": "📚"
         },
         {
           "id": "zgjx",
@@ -1161,7 +1161,7 @@ export const mockData = {
           "name": "国务院发展研究中心",
           "url": "https://www.drc.gov.cn",
           "description": "国务院发展研究中心官方门户",
-          "icon": "📊"
+          "icon": "📈"
         },
         {
           "id": "caas",
