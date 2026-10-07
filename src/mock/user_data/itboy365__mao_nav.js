@@ -61,7 +61,7 @@ export const mockData = {
           "name": "交管12123",
           "url": "https://gab.122.gov.cn",
           "description": "公安部交管平台，查违章换驾照",
-          "icon": "https://www.faviconextractor.com/favicon/122.gov.cn"
+          "icon": "🚗"
         },
         {
           "id": "nia",
@@ -111,7 +111,7 @@ export const mockData = {
           "name": "国家医保服务平台",
           "url": "https://fuwu.nhsa.gov.cn",
           "description": "查医保、办跨省异地就医",
-          "icon": "💊"
+          "icon": "🏥"
         },
         {
           "id": "nhsa",
@@ -147,7 +147,7 @@ export const mockData = {
           "name": "国家卫生健康委",
           "url": "https://www.nhc.gov.cn",
           "description": "卫健委官方门户",
-          "icon": "🏥"
+          "icon": "🩺"
         },
         {
           "id": "nmpa",
@@ -891,7 +891,7 @@ export const mockData = {
           "name": "中国人大网",
           "url": "http://www.npc.gov.cn",
           "description": "全国人民代表大会官方门户",
-          "icon": "	🗳️"
+          "icon": "🗳️"
         },
         {
           "id": "cppcc",
