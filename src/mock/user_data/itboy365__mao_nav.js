@@ -412,7 +412,7 @@ export const mockData = {
           "name": "中国地震台网",
           "url": "https://www.ceic.ac.cn",
           "description": "地震信息官方发布",
-          "icon": "https://www.faviconextractor.com/favicon/www.ceic.ac.cn"
+          "icon": "🌍"
         }
       ]
     },
@@ -462,21 +462,21 @@ export const mockData = {
           "name": "12321网络不良与垃圾信息举报",
           "url": "https://www.12321.cn",
           "description": "垃圾短信、骚扰电话、不良网站举报",
-          "icon": "https://www.faviconextractor.com/favicon/www.12321.cn"
+          "icon": "🛡️"
         },
         {
           "id": "12377",
           "name": "12377网络违法和不良信息举报",
           "url": "https://www.12377.cn",
           "description": "网络违法和不良信息举报中心",
-          "icon": "https://www.faviconextractor.com/favicon/www.12377.cn"
+          "icon": "🚨"
         },
         {
           "id": "119",
           "name": "国家消防救援局",
           "url": "https://www.119.gov.cn",
           "description": "国家消防救援局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.119.gov.cn"
+          "icon": "🚒"
         }
       ]
     },
@@ -533,7 +533,7 @@ export const mockData = {
           "name": "12309中国检察网",
           "url": "https://www.12309.gov.cn",
           "description": "检察机关网上服务大厅",
-          "icon": "https://www.faviconextractor.com/favicon/www.12309.gov.cn"
+          "icon": "⚖️"
         }
       ]
     },
@@ -720,7 +720,7 @@ export const mockData = {
           "name": "国家文物局",
           "url": "http://www.ncha.gov.cn",
           "description": "国家文物局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.ncha.gov.cn"
+          "icon": "🏺"
         },
         {
           "id": "cnipa",
@@ -770,7 +770,7 @@ export const mockData = {
           "name": "自然资源部",
           "url": "https://www.mnr.gov.cn",
           "description": "自然资源部官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.mnr.gov.cn"
+          "icon": "🌍"
         },
         {
           "id": "moa",
@@ -1125,7 +1125,7 @@ export const mockData = {
           "name": "中国福利彩票",
           "url": "https://www.cwl.gov.cn",
           "description": "中国福利彩票官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.cwl.gov.cn"
+          "icon": "🎰"
         }
       ]
     },
