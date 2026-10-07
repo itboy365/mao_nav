@@ -362,21 +362,21 @@ export const mockData = {
           "name": "国家企业信用信息公示系统",
           "url": "https://www.gsxt.gov.cn",
           "description": "查企业工商、年报、异常",
-          "icon": "https://www.faviconextractor.com/favicon/www.gsxt.gov.cn"
+          "icon": "🏢"
         },
         {
           "id": "creditchina",
           "name": "信用中国",
           "url": "https://www.creditchina.gov.cn",
           "description": "政府信用信息查询总窗口",
-          "icon": "https://www.faviconextractor.com/favicon/www.creditchina.gov.cn"
+          "icon": "📊"
         },
         {
           "id": "zxgk",
           "name": "中国执行信息公开网",
           "url": "http://zxgk.court.gov.cn",
           "description": "最高法被执行人信息公开",
-          "icon": "https://www.faviconextractor.com/favicon/court.gov.cn"
+          "icon": "⚖️"
         },
         {
           "id": "customs-credit",
@@ -455,7 +455,7 @@ export const mockData = {
           "name": "中国互联网联合辟谣平台",
           "url": "https://www.piyao.org.cn",
           "description": "官方辟谣信息查询",
-          "icon": "https://www.faviconextractor.com/favicon/www.piyao.org.cn"
+          "icon": "📢"
         },
         {
           "id": "12321",
@@ -856,7 +856,7 @@ export const mockData = {
           "name": "国家新闻出版署",
           "url": "https://www.nppa.gov.cn",
           "description": "新闻出版官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.nppa.gov.cn"
+          "icon": "📰"
         },
         {
           "id": "sport",
@@ -891,7 +891,7 @@ export const mockData = {
           "name": "中国人大网",
           "url": "http://www.npc.gov.cn",
           "description": "全国人民代表大会官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.npc.gov.cn"
+          "icon": "	🗳️"
         },
         {
           "id": "cppcc",
