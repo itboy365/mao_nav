@@ -584,7 +584,7 @@ export const mockData = {
           "name": "电信用户申诉受理中心",
           "url": "https://yhssglxt.miit.gov.cn/web/",
           "description": "工信部12300，电信投诉直达",
-          "icon": "https://www.faviconextractor.com/favicon/miit.gov.cn"
+          "icon": "📞"
         },
         {
           "id": "miit-icp",
@@ -598,7 +598,7 @@ export const mockData = {
           "name": "工信部电信业务综合管理平台",
           "url": "https://tsm.miit.gov.cn",
           "description": "电信业务许可查询",
-          "icon": "https://www.faviconextractor.com/favicon/miit.gov.cn"
+          "icon": "📡"
         }
       ]
     },
@@ -641,7 +641,7 @@ export const mockData = {
           "name": "全国12315平台",
           "url": "https://www.12315.cn",
           "description": "消费者投诉举报平台",
-          "icon": "https://www.faviconextractor.com/favicon/www.12315.cn"
+          "icon": "🛒"
         },
         {
           "id": "sasac",
@@ -827,14 +827,14 @@ export const mockData = {
           "name": "国务院台湾事务办公室",
           "url": "https://www.gwytb.gov.cn",
           "description": "国务院台办官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.gwytb.gov.cn"
+          "icon": "🌏"
         },
         {
           "id": "cidca",
           "name": "国家国际发展合作署",
           "url": "http://www.cidca.gov.cn",
           "description": "国家国际发展合作署官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.cidca.gov.cn"
+          "icon": "🤝"
         }
       ]
     },
@@ -884,7 +884,7 @@ export const mockData = {
           "name": "全国标准信息公共服务平台",
           "url": "https://std.samr.gov.cn",
           "description": "国家标准查询平台",
-          "icon": "https://www.faviconextractor.com/favicon/std.samr.gov.cn"
+          "icon": "📏"
         },
         {
           "id": "npc",
