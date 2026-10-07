@@ -82,14 +82,14 @@ export const mockData = {
           "name": "中国民用航空局",
           "url": "https://www.caac.gov.cn",
           "description": "民航局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.caac.gov.cn"
+          "icon": "✈️"
         },
         {
           "id": "nra",
           "name": "国家铁路局",
           "url": "https://www.nra.gov.cn",
           "description": "国家铁路局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.nra.gov.cn"
+          "icon": "🚂"
         }
       ]
     },
@@ -104,7 +104,7 @@ export const mockData = {
           "name": "国家社会保险公共服务平台",
           "url": "http://si.12333.gov.cn",
           "description": "查社保、办转移、资格认证",
-          "icon": "https://www.faviconextractor.com/favicon/12333.gov.cn"
+          "icon": "🏥"
         },
         {
           "id": "nhsa-fuwu",
@@ -118,7 +118,7 @@ export const mockData = {
           "name": "国家医疗保障局",
           "url": "https://www.nhsa.gov.cn",
           "description": "国家医保局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.nhsa.gov.cn"
+          "icon": "💊"
         },
         {
           "id": "mohrss",
@@ -405,7 +405,7 @@ export const mockData = {
           "name": "中国气象局",
           "url": "https://www.cma.gov.cn",
           "description": "中国气象局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.cma.gov.cn"
+          "icon": "🌤️"
         },
         {
           "id": "ceic",
@@ -1140,7 +1140,7 @@ export const mockData = {
           "name": "中国科学院",
           "url": "https://www.cas.cn",
           "description": "中国科学院官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.cas.cn"
+          "icon": "🔬"
         },
         {
           "id": "cae",
@@ -1161,14 +1161,14 @@ export const mockData = {
           "name": "国务院发展研究中心",
           "url": "https://www.drc.gov.cn",
           "description": "国务院发展研究中心官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.drc.gov.cn"
+          "icon": "📊"
         },
         {
           "id": "caas",
           "name": "中国农业科学院",
           "url": "https://www.caas.cn",
           "description": "农业科研、科技咨询",
-          "icon": "https://www.faviconextractor.com/favicon/www.caas.cn"
+          "icon": "🌾"
         },
         {
           "id": "cams",
