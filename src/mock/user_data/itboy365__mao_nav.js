@@ -254,7 +254,7 @@ export const mockData = {
           "name": "全国增值税发票查验平台",
           "url": "https://inv-veri.chinatax.gov.cn",
           "description": "国家税务总局发票查验",
-          "icon": "https://www.faviconextractor.com/favicon/chinatax.gov.cn"
+          "icon": "https://www.faviconextractor.com/favicon/inv-veri.chinatax.gov.cn"
         },
         {
           "id": "chinatax",
