@@ -11,35 +11,35 @@ export const mockData = {
           "name": "中国政府网",
           "url": "https://www.gov.cn",
           "description": "国务院办公厅主办，权威政策发布",
-          "icon": "https://www.faviconextractor.com/favicon/www.gov.cn"
+          "icon": "https://icons.duckduckgo.com/ip3/www.gov.cn.ico"
         },
         {
           "id": "gjzwfw",
           "name": "国家政务服务平台",
           "url": "http://gjzwfw.www.gov.cn",
           "description": "全国一体化政务服务总枢纽",
-          "icon": "https://www.faviconextractor.com/favicon/www.gov.cn"
+          "icon": "https://icons.duckduckgo.com/ip3/www.gov.cn.ico"
         },
         {
           "id": "gov-zwgk",
           "name": "国务院政策文件库",
           "url": "https://www.gov.cn/zhengce/zhengcewenjianku/",
           "description": "国务院及各部门政策文件检索",
-          "icon": "https://www.faviconextractor.com/favicon/www.gov.cn"
+          "icon": "https://icons.duckduckgo.com/ip3/www.gov.cn.ico"
         },
         {
           "id": "gov-hudong-wz",
           "name": "我向总理说句话",
           "url": "https://liuyan.www.gov.cn/2024wxzlsjh/index.htm",
           "description": "中国政府网网民建言通道",
-          "icon": "https://www.faviconextractor.com/favicon/www.gov.cn"
+          "icon": "https://icons.duckduckgo.com/ip3/www.gov.cn.ico"
         },
         {
           "id": "gov-hudong",
           "name": "中国政府网·互动",
           "url": "https://www.gov.cn/hudong/",
           "description": "国家级投诉建议、政策咨询入口",
-          "icon": "https://www.faviconextractor.com/favicon/www.gov.cn"
+          "icon": "https://icons.duckduckgo.com/ip3/www.gov.cn.ico"
         }
       ]
     },
