@@ -11,7 +11,7 @@ const router = createRouter({
       component: NavHomeView,
     },
     {
-      path: '/admin',
+      path: '/china-admin',
       name: 'admin',
       component: () => import('../views/AdminView.vue'),
       meta: {
