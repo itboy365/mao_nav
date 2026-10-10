@@ -11,35 +11,35 @@ export const mockData = {
           "name": "中国政府网",
           "url": "https://www.gov.cn",
           "description": "国务院办公厅主办，权威政策发布",
-          "icon": "https://icons.duckduckgo.com/ip3/www.gov.cn.ico"
+          "icon": "🏛️"
         },
         {
           "id": "gjzwfw",
           "name": "国家政务服务平台",
           "url": "http://gjzwfw.www.gov.cn",
           "description": "全国一体化政务服务总枢纽",
-          "icon": "https://icons.duckduckgo.com/ip3/www.gov.cn.ico"
+          "icon": "🏛️"
         },
         {
           "id": "gov-zwgk",
           "name": "国务院政策文件库",
           "url": "https://www.gov.cn/zhengce/zhengcewenjianku/",
           "description": "国务院及各部门政策文件检索",
-          "icon": "https://icons.duckduckgo.com/ip3/www.gov.cn.ico"
+          "icon": "🏛️"
         },
         {
           "id": "gov-hudong-wz",
           "name": "我向总理说句话",
           "url": "https://liuyan.www.gov.cn/2024wxzlsjh/index.htm",
           "description": "中国政府网网民建言通道",
-          "icon": "https://icons.duckduckgo.com/ip3/www.gov.cn.ico"
+          "icon": "🏛️"
         },
         {
           "id": "gov-hudong",
           "name": "中国政府网·互动",
           "url": "https://www.gov.cn/hudong/",
           "description": "国家级投诉建议、政策咨询入口",
-          "icon": "https://icons.duckduckgo.com/ip3/www.gov.cn.ico"
+          "icon": "🏛️"
         }
       ]
     },
@@ -54,7 +54,7 @@ export const mockData = {
           "name": "中国铁路12306",
           "url": "https://www.12306.cn",
           "description": "全国火车票唯一官方售票平台",
-          "icon": "https://www.faviconextractor.com/favicon/www.12306.cn"
+          "icon": "🚗"
         },
         {
           "id": "gab122",
@@ -68,14 +68,14 @@ export const mockData = {
           "name": "国家移民管理局",
           "url": "https://www.nia.gov.cn",
           "description": "护照、港澳台通行证办理查询",
-          "icon": "https://www.faviconextractor.com/favicon/www.nia.gov.cn"
+          "icon": "🛂"
         },
         {
           "id": "mot",
           "name": "交通运输部",
           "url": "https://www.mot.gov.cn",
           "description": "交通运输部官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.mot.gov.cn"
+          "icon": "🚗"
         },
         {
           "id": "caac",
@@ -125,14 +125,14 @@ export const mockData = {
           "name": "人力资源和社会保障部",
           "url": "https://www.mohrss.gov.cn",
           "description": "人社部官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.mohrss.gov.cn"
+          "icon": "🧑‍💼"
         },
         {
           "id": "mva",
           "name": "退役军人事务部",
           "url": "https://www.mva.gov.cn",
           "description": "退役军人服务保障",
-          "icon": "https://www.faviconextractor.com/favicon/www.mva.gov.cn"
+          "icon": "🎖️"
         }
       ]
     },
@@ -154,14 +154,14 @@ export const mockData = {
           "name": "国家药品监督管理局",
           "url": "https://www.nmpa.gov.cn",
           "description": "药品、医疗器械官方查询",
-          "icon": "https://www.faviconextractor.com/favicon/www.nmpa.gov.cn"
+          "icon": "🧪"
         },
         {
           "id": "chinacdc",
           "name": "中国疾病预防控制中心",
           "url": "https://www.chinacdc.cn",
           "description": "疾控中心官方，疫苗查询",
-          "icon": "https://www.faviconextractor.com/favicon/www.chinacdc.cn"
+          "icon": "🦠"
         },
         {
           "id": "nhc-zwfw",
@@ -175,14 +175,14 @@ export const mockData = {
           "name": "国家中医药管理局",
           "url": "http://www.natcm.gov.cn",
           "description": "中医药管理局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.natcm.gov.cn"
+          "icon": "🌿"
         },
         {
           "id": "ndcpa",
           "name": "国家疾病预防控制局",
           "url": "https://www.ndcpa.gov.cn",
           "description": "国家疾控局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.ndcpa.gov.cn"
+          "icon": "🧬"
         }
       ]
     },
@@ -197,42 +197,42 @@ export const mockData = {
           "name": "学信网",
           "url": "https://www.chsi.com.cn",
           "description": "教育部指定学历查询唯一网站",
-          "icon": "https://www.faviconextractor.com/favicon/www.chsi.com.cn"
+          "icon": "📜"
         },
         {
           "id": "moe-zwfw",
           "name": "教育部政务服务平台",
           "url": "https://zwfw.moe.gov.cn",
           "description": "四六级、教师资格、普通话查询",
-          "icon": "https://www.faviconextractor.com/favicon/zwfw.moe.gov.cn"
+          "icon": "🧑‍🏫"
         },
         {
           "id": "neea",
           "name": "中国教育考试网",
           "url": "https://www.neea.edu.cn",
           "description": "教育部教育考试院官方平台",
-          "icon": "https://www.faviconextractor.com/favicon/www.neea.edu.cn"
+          "icon": "📝"
         },
         {
           "id": "smartedu",
           "name": "国家中小学智慧教育平台",
           "url": "https://basic.smartedu.cn",
           "description": "中小学免费课程资源",
-          "icon": "https://www.faviconextractor.com/favicon/basic.smartedu.cn"
+          "icon": "📚"
         },
         {
           "id": "gaokao",
           "name": "阳光高考",
           "url": "https://gaokao.chsi.com.cn",
           "description": "教育部高考信息发布平台",
-          "icon": "https://www.faviconextractor.com/favicon/gaokao.chsi.com.cn"
+          "icon": "🎯"
         },
         {
           "id": "yz-chsi",
           "name": "中国研究生招生信息网",
           "url": "https://yz.chsi.com.cn",
           "description": "考研报名、调剂、招生信息官方平台",
-          "icon": "https://www.faviconextractor.com/favicon/yz.chsi.com.cn"
+          "icon": "📖"
         }
       ]
     },
@@ -247,14 +247,14 @@ export const mockData = {
           "name": "网上国网",
           "url": "https://www.95598.cn",
           "description": "国家电网官方，交电费查账单",
-          "icon": "https://www.faviconextractor.com/favicon/www.95598.cn"
+          "icon": "⚡"
         },
         {
           "id": "chinatax-inv",
           "name": "全国增值税发票查验平台",
           "url": "https://inv-veri.chinatax.gov.cn",
           "description": "国家税务总局发票查验",
-          "icon": "https://www.faviconextractor.com/favicon/inv-veri.chinatax.gov.cn"
+          "icon": "🧾"
         },
         {
           "id": "chinatax",
@@ -268,7 +268,7 @@ export const mockData = {
           "name": "12366纳税服务平台",
           "url": "https://12366.chinatax.gov.cn",
           "description": "纳税咨询、办税服务",
-          "icon": "https://www.faviconextractor.com/favicon/12366.chinatax.gov.cn"
+          "icon": "📞"
         }
       ]
     },
@@ -283,7 +283,7 @@ export const mockData = {
           "name": "住房和城乡建设部",
           "url": "https://www.mohurd.gov.cn",
           "description": "住建部官方门户，公积金查询",
-          "icon": "https://www.faviconextractor.com/favicon/www.mohurd.gov.cn"
+          "icon": "🏠"
         }
       ]
     },
@@ -298,56 +298,56 @@ export const mockData = {
           "name": "央视网",
           "url": "https://www.cctv.com",
           "description": "中央广播电视总台官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.cctv.com"
+          "icon": "📺"
         },
         {
           "id": "news-cn",
           "name": "新华网",
           "url": "https://www.news.cn",
           "description": "国家通讯社新华社主办",
-          "icon": "https://www.faviconextractor.com/favicon/www.news.cn"
+          "icon": "🗞️"
         },
         {
           "id": "people",
           "name": "人民网",
           "url": "https://www.people.cn",
           "description": "人民日报社建设的门户平台",
-          "icon": "https://www.faviconextractor.com/favicon/www.people.cn"
+          "icon": "📰"
         },
         {
           "id": "cnr",
           "name": "央广网",
           "url": "https://www.cnr.cn",
           "description": "中央广播电视总台央广官方",
-          "icon": "https://www.faviconextractor.com/favicon/www.cnr.cn"
+          "icon": "📻"
         },
         {
           "id": "china",
           "name": "中国网",
           "url": "http://www.china.com.cn",
           "description": "中国外文局主办的国家重点新闻网站",
-          "icon": "https://www.faviconextractor.com/favicon/www.china.com.cn"
+          "icon": "🌐"
         },
         {
           "id": "chinadaily",
           "name": "中国日报网",
           "url": "https://www.chinadaily.com.cn",
           "description": "中国日报社官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.chinadaily.com.cn"
+          "icon": "📄"
         },
         {
           "id": "cgtn",
           "name": "CGTN",
           "url": "https://www.cgtn.com",
           "description": "中国国际电视台官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.cgtn.com"
+          "icon": "🎥"
         },
         {
           "id": "chinanews",
           "name": "中国新闻网",
           "url": "https://www.chinanews.com.cn",
           "description": "中央重点新闻网站，依托中新社",
-          "icon": "https://www.faviconextractor.com/favicon/www.chinanews.com.cn"
+          "icon": "🖥️"
         }
       ]
     },
@@ -383,7 +383,7 @@ export const mockData = {
           "name": "海关企业进出口信用信息公示平台",
           "url": "http://credit.customs.gov.cn",
           "description": "查询海关企业信用等级、备案信息",
-          "icon": "https://www.faviconextractor.com/favicon/credit.customs.gov.cn"
+          "icon": "🛃"
         }
       ]
     },
@@ -398,7 +398,7 @@ export const mockData = {
           "name": "中国天气网",
           "url": "https://www.weather.com.cn",
           "description": "中国气象局公众气象服务门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.weather.com.cn"
+          "icon": "🌦️"
         },
         {
           "id": "cma",
@@ -427,28 +427,28 @@ export const mockData = {
           "name": "公安部",
           "url": "https://www.mps.gov.cn",
           "description": "公安部官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.mps.gov.cn"
+          "icon": "👮"
         },
         {
           "id": "mps-fz",
           "name": "国家反诈中心",
           "url": "https://www.mps.gov.cn/n2255079/n7634401/index.html",
           "description": "公安部反诈骗宣传平台",
-          "icon": "https://www.faviconextractor.com/favicon/www.mps.gov.cn"
+          "icon": "🕵️"
         },
         {
           "id": "cac",
           "name": "国家互联网信息办公室",
           "url": "https://www.cac.gov.cn",
           "description": "网信办官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.cac.gov.cn"
+          "icon": "🖥️"
         },
         {
           "id": "mem",
           "name": "应急管理部",
           "url": "https://www.mem.gov.cn",
           "description": "应急管理部官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.mem.gov.cn"
+          "icon": "🚨"
         },
         {
           "id": "piyao",
@@ -491,42 +491,42 @@ export const mockData = {
           "name": "最高人民法院",
           "url": "https://www.court.gov.cn",
           "description": "最高人民法院官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.court.gov.cn"
+          "icon": "🏛️"
         },
         {
           "id": "wenshu",
           "name": "中国裁判文书网",
           "url": "https://wenshu.court.gov.cn",
           "description": "全国法院裁判文书公开",
-          "icon": "https://www.faviconextractor.com/favicon/wenshu.court.gov.cn"
+          "icon": "📜"
         },
         {
           "id": "spp",
           "name": "最高人民检察院",
           "url": "https://www.spp.gov.cn",
           "description": "最高检官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.spp.gov.cn"
+          "icon": "⚖️"
         },
         {
           "id": "moj",
           "name": "司法部",
           "url": "https://www.moj.gov.cn",
           "description": "司法部官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.moj.gov.cn"
+          "icon": "🏢"
         },
         {
           "id": "12348",
           "name": "中国法律服务网",
           "url": "https://www.12348.gov.cn",
           "description": "公共法律服务平台",
-          "icon": "https://www.faviconextractor.com/favicon/www.12348.gov.cn"
+          "icon": "📞"
         },
         {
           "id": "flk",
           "name": "国家法律法规数据库",
           "url": "https://flk.npc.gov.cn",
           "description": "全国人大官方法律法规查询",
-          "icon": "https://www.faviconextractor.com/favicon/flk.npc.gov.cn"
+          "icon": "📚"
         },
         {
           "id": "12309",
@@ -562,7 +562,7 @@ export const mockData = {
           "name": "中国残疾人联合会",
           "url": "https://www.cdpf.org.cn",
           "description": "残疾人服务平台",
-          "icon": "https://www.faviconextractor.com/favicon/www.cdpf.org.cn"
+          "icon": "♿"
         }
       ]
     },
@@ -577,7 +577,7 @@ export const mockData = {
           "name": "工业和信息化部",
           "url": "https://www.miit.gov.cn",
           "description": "工信部官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.miit.gov.cn"
+          "icon": "🏢"
         },
         {
           "id": "miit-12300",
@@ -591,7 +591,7 @@ export const mockData = {
           "name": "ICP/IP地址/域名信息备案管理系统",
           "url": "https://beian.miit.gov.cn",
           "description": "网站备案查询与办理",
-          "icon": "https://www.faviconextractor.com/favicon/beian.miit.gov.cn"
+          "icon": "🌐"
         },
         {
           "id": "miit-tsm",
@@ -613,28 +613,28 @@ export const mockData = {
           "name": "中国人民银行",
           "url": "https://www.pbc.gov.cn",
           "description": "中国人民银行官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.pbc.gov.cn"
+          "icon": "🏦"
         },
         {
           "id": "nfra",
           "name": "国家金融监督管理总局",
           "url": "https://www.nfra.gov.cn",
           "description": "金融监管总局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.nfra.gov.cn"
+          "icon": "💹"
         },
         {
           "id": "csrc",
           "name": "中国证券监督管理委员会",
           "url": "https://www.csrc.gov.cn",
           "description": "证监会官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.csrc.gov.cn"
+          "icon": "📈"
         },
         {
           "id": "samr",
           "name": "国家市场监督管理总局",
           "url": "https://www.samr.gov.cn",
           "description": "市场监管总局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.samr.gov.cn"
+          "icon": "⚖️"
         },
         {
           "id": "12315",
@@ -648,7 +648,7 @@ export const mockData = {
           "name": "国务院国资委",
           "url": "http://www.sasac.gov.cn",
           "description": "国务院国资委官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.sasac.gov.cn"
+          "icon": "🏭"
         }
       ]
     },
@@ -663,42 +663,42 @@ export const mockData = {
           "name": "国家邮政局",
           "url": "https://www.spb.gov.cn",
           "description": "快递、邮政服务监管与申诉",
-          "icon": "https://www.faviconextractor.com/favicon/www.spb.gov.cn"
+          "icon": "📮"
         },
         {
           "id": "chinapost",
           "name": "中国邮政",
           "url": "https://www.chinapost.com.cn",
           "description": "中国邮政官方，快递查询",
-          "icon": "https://www.faviconextractor.com/favicon/www.chinapost.com.cn"
+          "icon": "📦"
         },
         {
           "id": "customs",
           "name": "海关总署",
           "url": "http://www.customs.gov.cn",
           "description": "进出口、报关、行邮税查询",
-          "icon": "https://www.faviconextractor.com/favicon/www.customs.gov.cn"
+          "icon": "🛃"
         },
         {
           "id": "stats",
           "name": "国家统计局",
           "url": "https://www.stats.gov.cn",
           "description": "全国经济、人口、社会统计数据",
-          "icon": "https://www.faviconextractor.com/favicon/www.stats.gov.cn"
+          "icon": "📊"
         },
         {
           "id": "safe",
           "name": "国家外汇管理局",
           "url": "https://www.safe.gov.cn",
           "description": "外汇管理、汇率查询官方平台",
-          "icon": "https://www.faviconextractor.com/favicon/www.safe.gov.cn"
+          "icon": "💱"
         },
         {
           "id": "singlewindow",
           "name": "中国国际贸易单一窗口",
           "url": "https://www.singlewindow.cn",
           "description": "进出口企业报关一站式平台",
-          "icon": "https://www.faviconextractor.com/favicon/www.singlewindow.cn"
+          "icon": "🚢"
         }
       ]
     },
@@ -713,7 +713,7 @@ export const mockData = {
           "name": "文化和旅游部",
           "url": "https://www.mct.gov.cn",
           "description": "文旅部官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.mct.gov.cn"
+          "icon": "🎭"
         },
         {
           "id": "ncha",
@@ -727,28 +727,28 @@ export const mockData = {
           "name": "国家知识产权局",
           "url": "https://www.cnipa.gov.cn",
           "description": "专利、商标官方查询",
-          "icon": "https://www.faviconextractor.com/favicon/www.cnipa.gov.cn"
+          "icon": "💡"
         },
         {
           "id": "ncac",
           "name": "国家版权局",
           "url": "https://www.ncac.gov.cn",
           "description": "国家版权局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.ncac.gov.cn"
+          "icon": "©️"
         },
         {
           "id": "sbj",
           "name": "中国商标网",
           "url": "https://sbj.cnipa.gov.cn",
           "description": "商标注册、查询官方入口",
-          "icon": "https://www.faviconextractor.com/favicon/sbj.cnipa.gov.cn"
+          "icon": "™️"
         },
         {
           "id": "ggfw",
           "name": "国家知识产权公共服务平台",
           "url": "https://ggfw.cnipa.gov.cn",
           "description": "知识产权一站式公共服务",
-          "icon": "https://www.faviconextractor.com/favicon/ggfw.cnipa.gov.cn"
+          "icon": "🔍"
         }
       ]
     },
@@ -763,7 +763,7 @@ export const mockData = {
           "name": "生态环境部",
           "url": "https://www.mee.gov.cn",
           "description": "生态环境部官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.mee.gov.cn"
+          "icon": "🌱"
         },
         {
           "id": "mnr",
@@ -777,21 +777,21 @@ export const mockData = {
           "name": "农业农村部",
           "url": "https://www.moa.gov.cn",
           "description": "农业农村部官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.moa.gov.cn"
+          "icon": "🚜"
         },
         {
           "id": "forestry",
           "name": "国家林业和草原局",
           "url": "https://www.forestry.gov.cn",
           "description": "国家林草局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.forestry.gov.cn"
+          "icon": "🌲"
         },
         {
           "id": "lswz",
           "name": "国家粮食和物资储备局",
           "url": "https://www.lswz.gov.cn",
           "description": "粮食和物资储备官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.lswz.gov.cn"
+          "icon": "🍚"
         }
       ]
     },
@@ -806,7 +806,7 @@ export const mockData = {
           "name": "中华人民共和国外交部",
           "url": "https://www.mfa.gov.cn",
           "description": "外交部官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.mfa.gov.cn"
+          "icon": "🏛️"
         },
         {
           "id": "cs-mfa",
@@ -820,7 +820,7 @@ export const mockData = {
           "name": "国务院港澳事务办公室",
           "url": "https://www.hmo.gov.cn",
           "description": "国务院港澳办官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.hmo.gov.cn"
+          "icon": "🇭🇰"
         },
         {
           "id": "gwytb",
@@ -849,7 +849,7 @@ export const mockData = {
           "name": "国家广播电视总局",
           "url": "https://www.nrta.gov.cn",
           "description": "广电总局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.nrta.gov.cn"
+          "icon": "📺"
         },
         {
           "id": "nppa",
@@ -898,21 +898,21 @@ export const mockData = {
           "name": "中国政协网",
           "url": "https://www.cppcc.gov.cn",
           "description": "全国政协官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.cppcc.gov.cn"
+          "icon": "🏛️"
         },
         {
           "id": "nda",
           "name": "国家数据局",
           "url": "https://www.nda.gov.cn",
           "description": "国家数据局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.nda.gov.cn"
+          "icon": "💾"
         },
         {
           "id": "sastind",
           "name": "国家国防科技工业局",
           "url": "https://www.sastind.gov.cn",
           "description": "国防科工局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.sastind.gov.cn"
+          "icon": "🛰️"
         },
         {
           "id": "counsellor",
@@ -926,21 +926,21 @@ export const mockData = {
           "name": "国家机关事务管理局",
           "url": "https://www.ggj.gov.cn",
           "description": "国家事务管理局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.ggj.gov.cn"
+          "icon": "🏢"
         },
         {
           "id": "cnca",
           "name": "国家认证认可监督管理委员会",
           "url": "https://www.cnca.gov.cn",
           "description": "认证认可、检验检测官方查询",
-          "icon": "https://www.faviconextractor.com/favicon/www.cnca.gov.cn"
+          "icon": "✅"
         },
         {
           "id": "sac",
           "name": "国家标准化管理委员会",
           "url": "https://www.sac.gov.cn",
           "description": "国家标准、行业标准查询",
-          "icon": "https://www.faviconextractor.com/favicon/www.sac.gov.cn"
+          "icon": "📐"
         }
       ]
     },
@@ -969,35 +969,35 @@ export const mockData = {
           "name": "中国红十字会",
           "url": "https://www.redcross.org.cn",
           "description": "中国红十字会官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.redcross.org.cn"
+          "icon": "❤️"
         },
         {
           "id": "cast",
           "name": "中国科学技术协会",
           "url": "https://www.cast.org.cn",
           "description": "中国科协官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.cast.org.cn"
+          "icon": "🔬"
         },
         {
           "id": "cflac",
           "name": "中国文学艺术界联合会",
           "url": "https://www.cflac.org.cn",
           "description": "中国文联官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.cflac.org.cn"
+          "icon": "🎭"
         },
         {
           "id": "chinawriter",
           "name": "中国作家协会",
           "url": "https://www.chinawriter.com.cn",
           "description": "中国作协官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.chinawriter.com.cn"
+          "icon": "✍️"
         },
         {
           "id": "chinaql",
           "name": "中华全国归国华侨联合会",
           "url": "https://www.chinaql.org",
           "description": "中国侨联官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.chinaql.org"
+          "icon": "🌏"
         },
         {
           "id": "cpaffc",
@@ -1011,7 +1011,7 @@ export const mockData = {
           "name": "中华全国工商业联合会",
           "url": "https://www.acfic.org.cn",
           "description": "全国工商联官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.acfic.org.cn"
+          "icon": "💼"
         },
         {
           "id": "chinalaw",
@@ -1025,7 +1025,7 @@ export const mockData = {
           "name": "中华全国新闻工作者协会",
           "url": "http://www.zgjx.cn",
           "description": "新闻行业自律、记者维权",
-          "icon": "https://www.faviconextractor.com/favicon/www.zgjx.cn"
+          "icon": "🎤"
         },
         {
           "id": "sclf",
@@ -1047,14 +1047,14 @@ export const mockData = {
           "name": "国家航天局",
           "url": "https://www.cnsa.gov.cn",
           "description": "国家航天局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.cnsa.gov.cn"
+          "icon": "🚀"
         },
         {
           "id": "caea",
           "name": "国家原子能机构",
           "url": "https://www.caea.gov.cn",
           "description": "国家原子能机构官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.caea.gov.cn"
+          "icon": "⚛️"
         },
         {
           "id": "tobacco",
@@ -1075,35 +1075,35 @@ export const mockData = {
           "name": "国家矿山安全监察局",
           "url": "https://www.chinamine-safety.gov.cn",
           "description": "矿山安全监察官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.chinamine-safety.gov.cn"
+          "icon": "⛏️"
         },
         {
           "id": "gjxfj",
           "name": "国家信访局",
           "url": "https://www.gjxfj.gov.cn",
           "description": "国家信访局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.gjxfj.gov.cn"
+          "icon": "📨"
         },
         {
           "id": "sara",
           "name": "国家宗教事务局",
           "url": "https://www.sara.gov.cn",
           "description": "国家宗教事务局官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.sara.gov.cn"
+          "icon": "🕊️"
         },
         {
           "id": "neac",
           "name": "国家民族事务委员会",
           "url": "https://www.neac.gov.cn",
           "description": "国家民委官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.neac.gov.cn"
+          "icon": "🧑‍🤝‍🧑"
         },
         {
           "id": "cncaprc",
           "name": "中国老龄协会",
           "url": "https://www.cncaprc.gov.cn",
           "description": "老龄政策研究、养老服务",
-          "icon": "https://www.faviconextractor.com/favicon/www.cncaprc.gov.cn"
+          "icon": "🧓"
         }
       ]
     },
@@ -1118,7 +1118,7 @@ export const mockData = {
           "name": "中国体育彩票",
           "url": "https://www.lottery.gov.cn",
           "description": "中国体育彩票官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.lottery.gov.cn"
+          "icon": "⚽"
         },
         {
           "id": "cwl",
@@ -1132,7 +1132,7 @@ export const mockData = {
     {
       "id": "research",
       "name": "科研智库",
-      "icon": "🎓",
+      "icon": "🔭",
       "order": 23,
       "sites": [
         {
@@ -1147,14 +1147,14 @@ export const mockData = {
           "name": "中国工程院",
           "url": "https://www.cae.cn",
           "description": "中国工程院官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.cae.cn"
+          "icon": "⚙️"
         },
         {
           "id": "cass",
           "name": "中国社会科学院",
           "url": "https://www.cass.cn",
           "description": "中国社会科学院官方门户",
-          "icon": "https://www.faviconextractor.com/favicon/www.cass.cn"
+          "icon": "📚"
         },
         {
           "id": "drc",
@@ -1175,7 +1175,7 @@ export const mockData = {
           "name": "中国医学科学院",
           "url": "https://www.pumc.edu.cn",
           "description": "医学研究、医学教育",
-          "icon": "https://www.faviconextractor.com/favicon/www.pumc.edu.cn"
+          "icon": "🧬"
         }
       ]
     }
